@@ -1,3 +1,9 @@
+.vs/
+*.map
+RiotTS/bin
+RiotTS/obj
+RiotTS/node_modules/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

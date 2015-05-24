@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{C24611C6-0BE4-47B9-B298-13962D2CBF9F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptToolsVersion>1.5</TypeScriptToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app.css" />
+    <Content Include="index.html" />
+    <Content Include="node_modules\riot\compiler.js" />
+    <Content Include="node_modules\riot\compiler.min.js" />
+    <Content Include="node_modules\riot\lib\browser\compiler\core.js" />
+    <Content Include="node_modules\riot\lib\browser\compiler\index.js" />
+    <Content Include="node_modules\riot\lib\browser\compiler\parsers.js" />
+    <Content Include="node_modules\riot\lib\browser\compiler\wrap\prefix.js" />
+    <Content Include="node_modules\riot\lib\browser\compiler\wrap\suffix.js" />
+    <Content Include="node_modules\riot\lib\browser\mixin.js" />
+    <Content Include="node_modules\riot\lib\browser\observable.js" />
+    <Content Include="node_modules\riot\lib\browser\router.js" />
+    <Content Include="node_modules\riot\lib\browser\tag\each.js" />
+    <Content Include="node_modules\riot\lib\browser\tag\old-ie-hacks.js" />
+    <Content Include="node_modules\riot\lib\browser\tag\parse.js" />
+    <Content Include="node_modules\riot\lib\browser\tag\tag.js" />
+    <Content Include="node_modules\riot\lib\browser\tag\update.js" />
+    <Content Include="node_modules\riot\lib\browser\tag\util.js" />
+    <Content Include="node_modules\riot\lib\browser\tag\vdom.js" />
+    <Content Include="node_modules\riot\lib\browser\tmpl.js" />
+    <Content Include="node_modules\riot\lib\browser\wrap\prefix.js" />
+    <Content Include="node_modules\riot\lib\browser\wrap\suffix.js" />
+    <Content Include="node_modules\riot\lib\riot+compiler.js" />
+    <Content Include="node_modules\riot\lib\riot.js" />
+    <Content Include="node_modules\riot\lib\server\analyzer.js" />
+    <Content Include="node_modules\riot\lib\server\cli.js" />
+    <Content Include="node_modules\riot\lib\server\compiler.js" />
+    <Content Include="node_modules\riot\lib\server\index.js" />
+    <Content Include="node_modules\riot\lib\server\parsers.js" />
+    <Content Include="node_modules\riot\lib\server\sdom.js" />
+    <Content Include="node_modules\riot\lib\shared\compiler.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\index.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\ansi-styles\index.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\escape-string-regexp\index.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\cli.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\index.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex\index.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\node_modules\get-stdin\index.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\strip-ansi\cli.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\strip-ansi\index.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex\index.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\supports-color\cli.js" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\supports-color\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\lib\fsevents-handler.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\lib\nodefs-handler.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\lib\chars.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\lib\expand.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\lib\glob.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\lib\utils.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\check.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\array-differ.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\current.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\filter.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\for-lefthand.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\for-negative.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\for-reverse.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\for.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\forEach-2.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\forEach.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\reduce.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\while-indexof.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\while-multi-unshift.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\while-multi.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\while-splice.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\while-unshift.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\code\while.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\fixtures\med.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\fixtures\short.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\benchmark\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\node_modules\array-slice\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\test.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\is-number\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\isobject\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\randomatic\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\repeat-string\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\.gitattributes" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\test.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\repeat-element\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\browser.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\debug.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\node.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\node_modules\ms\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\expand-brackets\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\filename-regex\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\kind-of\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\.gitattributes" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\for-own\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\for-own\node_modules\for-in\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\.gitattributes" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\test\test.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\test.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\node_modules\glob-base\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\node_modules\is-dotfile\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\node_modules\is-extglob\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\node_modules\is-equal-shallow\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\node_modules\is-equal-shallow\node_modules\is-primitive\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\node_modules\is-primitive\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\arrify\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\async-each\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\glob-parent\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\glob-parent\test.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\is-binary-path\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\is-glob\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\examples\callback-api.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\examples\grep.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\examples\stream-api-pipe.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\examples\stream-api.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\graceful-fs\graceful-fs.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\graceful-fs\polyfills.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\graceful-fs\test\open.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\graceful-fs\test\readdir-sort.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\minimatch.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\lru-cache\lib\lru-cache.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\lru-cache\test\basic.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\lru-cache\test\foreach.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\lru-cache\test\memory-leak.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\sigmund\bench.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\sigmund\sigmund.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\sigmund\test\basic.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\test\basic.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\test\brace-expand.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\test\caching.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\test\defaults.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\test\extglob-ending-with-state-char.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\duplex.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\lib\_stream_duplex.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\lib\_stream_passthrough.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\lib\_stream_readable.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\lib\_stream_transform.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\lib\_stream_writable.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\core-util-is\lib\util.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\core-util-is\util.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\inherits\inherits.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\inherits\inherits_browser.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\inherits\test.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\isarray\build\build.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\isarray\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\string_decoder\index.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\passthrough.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\readable.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\transform.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\writable.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\readdirp.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\stream-api.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\readdirp-stream.js" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\readdirp.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\example\parse.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\index.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\all_bool.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\bool.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\dash.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\default_bool.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\dotted.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\long.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\num.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\parse.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\parse_modified.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\short.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\stop_early.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\unknown.js" />
+    <Content Include="node_modules\riot\node_modules\minimist\test\whitespace.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\global.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\make.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\scripts\generate-docs.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\scripts\run-tests.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\shell.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\cat.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\cd.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\chmod.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\common.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\cp.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\dirs.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\echo.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\error.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\exec.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\find.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\grep.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\ln.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\ls.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\mkdir.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\mv.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\popd.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\pushd.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\pwd.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\rm.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\sed.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\tempdir.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\test.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\to.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\toEnd.js" />
+    <Content Include="node_modules\riot\node_modules\shelljs\src\which.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\dist\simple-dom-test.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\dist\simple-dom.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom.umd.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom\document.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom\document\comment.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom\document\document-fragment.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom\document\element.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom\document\node.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom\document\text.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom\html-parser.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom\html-serializer.js" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\lib\simple-dom\void-map.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\dist\simple-html-tokenizer.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer.umd.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer\char-refs\full.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer\char-refs\min.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer\entity-parser.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer\generate.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer\generator.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer\tokenize.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer\tokenizer.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer\tokens.js" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\lib\simple-html-tokenizer\utils.js" />
+    <Content Include="node_modules\riot\riot+compiler.js" />
+    <Content Include="node_modules\riot\riot+compiler.min.js" />
+    <Content Include="node_modules\riot\riot.js" />
+    <Content Include="node_modules\riot\riot.min.js" />
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="elements\timer.ts" />
+    <TypeScriptCompile Include="riot-ts.ts" />
+    <TypeScriptCompile Include="app.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="node_modules\riot\node_modules\.bin\shjs" />
+    <Content Include="node_modules\riot\node_modules\.bin\shjs.cmd" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\.bin\has-ansi" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\.bin\has-ansi.cmd" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\.bin\strip-ansi" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\.bin\strip-ansi.cmd" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\.bin\supports-color" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\.bin\supports-color.cmd" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\ansi-styles\package.json" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\ansi-styles\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\escape-string-regexp\package.json" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\escape-string-regexp\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex\package.json" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\node_modules\get-stdin\package.json" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\node_modules\get-stdin\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\package.json" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\has-ansi\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex\package.json" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\strip-ansi\package.json" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\strip-ansi\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\supports-color\package.json" />
+    <Content Include="node_modules\riot\node_modules\chalk\node_modules\supports-color\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chalk\package.json" />
+    <Content Include="node_modules\riot\node_modules\chalk\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\LICENSE-MIT" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\node_modules\array-slice\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\node_modules\array-slice\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\arr-diff\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\is-number\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\is-number\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\isobject\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\isobject\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\randomatic\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\randomatic\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\repeat-string\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\node_modules\repeat-string\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\node_modules\fill-range\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\expand-range\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\.jshintrc" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\.travis.yml" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\.verb.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\preserve\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\repeat-element\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\node_modules\repeat-element\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\braces\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\.jshintrc" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\bower.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\component.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\History.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\Makefile" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\node_modules\ms\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\node_modules\ms\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\node_modules\ms\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\node_modules\ms\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\debug\Readme.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\expand-brackets\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\expand-brackets\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\filename-regex\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\filename-regex\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\kind-of\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\kind-of\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\.jshintrc" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\.travis.yml" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\.verbrc.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\LICENSE-MIT" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\for-own\node_modules\for-in\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\for-own\node_modules\for-in\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\for-own\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\for-own\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\.jshintrc" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\.verbrc.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\LICENSE-MIT" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\node_modules\isobject\test\mocha.opts" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\object.omit\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\node_modules\glob-base\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\node_modules\glob-base\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\node_modules\is-dotfile\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\node_modules\is-dotfile\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\node_modules\is-extglob\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\node_modules\is-extglob\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\parse-glob\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\node_modules\is-equal-shallow\node_modules\is-primitive\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\node_modules\is-equal-shallow\node_modules\is-primitive\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\node_modules\is-equal-shallow\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\node_modules\is-equal-shallow\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\node_modules\is-primitive\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\node_modules\is-primitive\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\node_modules\regex-cache\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\node_modules\micromatch\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\anymatch\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\arrify\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\arrify\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\async-each\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\async-each\bower.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\async-each\CHANGELOG.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\async-each\component.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\async-each\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\async-each\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\glob-parent\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\glob-parent\.travis.yml" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\glob-parent\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\glob-parent\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\glob-parent\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\is-binary-path\node_modules\binary-extensions\binary-extensions.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\is-binary-path\node_modules\binary-extensions\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\is-binary-path\node_modules\binary-extensions\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\is-binary-path\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\is-binary-path\readme.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\is-glob\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\is-glob\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\.travis.yml" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\examples\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\examples\Readme.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\graceful-fs\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\graceful-fs\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\graceful-fs\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\graceful-fs\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\lru-cache\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\lru-cache\CONTRIBUTORS" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\lru-cache\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\lru-cache\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\lru-cache\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\sigmund\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\sigmund\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\node_modules\sigmund\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\minimatch\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\core-util-is\float.patch" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\core-util-is\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\core-util-is\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\inherits\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\inherits\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\inherits\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\isarray\component.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\isarray\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\isarray\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\string_decoder\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\string_decoder\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\string_decoder\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\node_modules\string_decoder\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\node_modules\readable-stream\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\README.md" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\bed\root_dir1\root_dir1_file1.ext1" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\bed\root_dir1\root_dir1_file2.ext2" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\bed\root_dir1\root_dir1_file3.ext3" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\bed\root_dir1\root_dir1_subdir1\root1_dir1_subdir1_file1.ext1" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\bed\root_dir2\root_dir2_file1.ext1" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\bed\root_dir2\root_dir2_file2.ext2" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\bed\root_file1.ext1" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\bed\root_file2.ext2" />
+    <Content Include="node_modules\riot\node_modules\chokidar\node_modules\readdirp\test\bed\root_file3.ext3" />
+    <Content Include="node_modules\riot\node_modules\chokidar\package.json" />
+    <Content Include="node_modules\riot\node_modules\chokidar\README.md" />
+    <Content Include="node_modules\riot\node_modules\minimist\.travis.yml" />
+    <Content Include="node_modules\riot\node_modules\minimist\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\minimist\package.json" />
+    <Content Include="node_modules\riot\node_modules\minimist\readme.markdown" />
+    <Content Include="node_modules\riot\node_modules\shelljs\.documentup.json" />
+    <Content Include="node_modules\riot\node_modules\shelljs\.jshintrc" />
+    <Content Include="node_modules\riot\node_modules\shelljs\.npmignore" />
+    <Content Include="node_modules\riot\node_modules\shelljs\.travis.yml" />
+    <Content Include="node_modules\riot\node_modules\shelljs\bin\shjs" />
+    <Content Include="node_modules\riot\node_modules\shelljs\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\shelljs\package.json" />
+    <Content Include="node_modules\riot\node_modules\shelljs\README.md" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\bin\build.sh" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\dist\simple-dom-test.js.map" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\dist\simple-dom.js.map" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\package.json" />
+    <Content Include="node_modules\riot\node_modules\simple-dom\README.md" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\dist\simple-html-tokenizer.js.map" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\LICENSE" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\package.json" />
+    <Content Include="node_modules\riot\node_modules\simple-html-tokenizer\README.md" />
+    <Content Include="node_modules\riot\package.json" />
+    <Content Include="node_modules\riot\README.md" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>RiotExample</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4228</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4228/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+</Project>
