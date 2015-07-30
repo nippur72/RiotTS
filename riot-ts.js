@@ -73,4 +73,19 @@ riot.class = function (element) {
     else
         throw "template property not specified";
 };
+// @component decorator
+function component(tagname, template) {
+    return function (target) {
+        target.prototype["tagName"] = tagname;
+        if (template !== undefined) {
+            target.prototype["template"] = template;
+        }
+    };
+}
+// @template decorator
+function template(template) {
+    return function (target) {
+        target.prototype["template"] = template;
+    };
+}
 //# sourceMappingURL=riot-ts.js.map

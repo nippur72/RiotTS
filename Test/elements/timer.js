@@ -3,6 +3,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+    switch (arguments.length) {
+        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+    }
+};
 var Timer = (function (_super) {
     __extends(Timer, _super);
     function Timer(opts) {
@@ -15,24 +23,14 @@ var Timer = (function (_super) {
             clearInterval(_this.timerHandle);
         });
     }
-    Object.defineProperty(Timer.prototype, "template", {
-        get: function () {
-            return "elements/timer.html";
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Timer.prototype, "tagName", {
-        get: function () {
-            return "timer";
-        },
-        enumerable: true,
-        configurable: true
-    });
     Timer.prototype.ticks = function () {
         this.time++;
         this.update();
     };
+    Timer = __decorate([
+        component("timer"),
+        template("elements/timer.html")
+    ], Timer);
     return Timer;
 })(Riot.Element);
 //# sourceMappingURL=timer.js.map

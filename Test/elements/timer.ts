@@ -1,17 +1,14 @@
-﻿class Timer extends Riot.Element {
+﻿@component("timer")
+
+@template("elements/timer.html")
+
+class Timer extends Riot.Element 
+{
    time: number;   
    mylist = ["one", "two", "three"];
 
    private timerHandle: number;  
    
-   get template() {
-      return "elements/timer.html";      
-   }
-
-   get tagName() {
-      return "timer";
-   }
-
    constructor(opts) {      
       super();
       this.time=opts.time||0;

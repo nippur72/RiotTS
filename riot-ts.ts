@@ -108,4 +108,21 @@ riot.class = function(element: Function) {
    else throw "template property not specified";   
 }
 
+// @component decorator
+function component(tagname: string, template?: string) {
+	return function(target: Function) {
+      target.prototype["tagName"] = tagname;
+      if (template !== undefined)
+      {
+         target.prototype["template"] = template;
+      }
+	}
+}
+
+// @template decorator
+function template(template: string) {
+	return function(target: Function) {
+      target.prototype["template"] = template;
+   }	
+}
                      

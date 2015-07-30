@@ -48,3 +48,5 @@ declare module Riot {
     function endsWith(s: any, searchString: any, position?: any): boolean;
 }
 declare var riot: Riot.Base;
+declare function component(tagname: string, template?: string): (target: Function) => void;
+declare function template(template: string): (target: Function) => void;
