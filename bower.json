@@ -19,6 +19,7 @@
     "*.csproj",
     "*.csproj.user",
     "RiotTS.*",
-    "Test"
+    "Test",
+    "Web.*"
   ]
 }
