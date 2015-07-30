@@ -1,0 +1,19 @@
+{
+  "name": "riot-ts-test",
+  "version": "0.0.0",
+  "homepage": "https://github.com/nippur72/RiotTS",
+  "authors": [
+    "Antonino Porcino <nino.porcino@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "riot-ts": "..\\..\\RiotTS"
+  }
+}
