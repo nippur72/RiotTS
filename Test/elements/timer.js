@@ -18,7 +18,7 @@ var Timer = (function (_super) {
     }
     Object.defineProperty(Timer.prototype, "template", {
         get: function () {
-            return "<div>\n                 timer: { time }<br>\n                 trasclusion is '<yield/>'<br>                 \n                 <div each=\"{el in mylist}\">iterating over array item \"{el}\"<br></div>\n              </div>";
+            return "elements/timer.html";
         },
         enumerable: true,
         configurable: true

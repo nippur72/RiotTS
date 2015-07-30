@@ -1,8 +1,14 @@
 .vs/
 *.map
-RiotTS/bin
-RiotTS/obj
-RiotTS/node_modules/
+bin/
+obj/
+node_modules/
+bower_components/
+
+Test/bin
+Test/obj
+Test/node_modules/
+Test/bower_components/
 
 # Windows image file caches
 Thumbs.db

@@ -1,14 +1,11 @@
 ﻿class Timer extends RiotElement {
-   time: number;
-   timerHandle: number;  
-   mylist=["one","two","three"];
+   time: number;   
+   mylist = ["one", "two", "three"];
+
+   private timerHandle: number;  
    
    get template() {
-      return `<div>
-                 timer: { time }<br>
-                 trasclusion is '<yield/>'<br>                 
-                 <div each="{el in mylist}">iterating over array item "{el}"<br></div>
-              </div>`;
+      return "elements/timer.html";      
    }
 
    get tagName() {
