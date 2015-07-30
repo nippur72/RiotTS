@@ -44,6 +44,7 @@ declare module Riot {
         one(eventName: string, fun: Function): void;
         off(events: string): void;
         trigger(eventName: string, ...args: any[]): void;
+        static register(): void;
     }
     function endsWith(s: any, searchString: any, position?: any): boolean;
 }

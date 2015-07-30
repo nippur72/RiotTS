@@ -49,7 +49,11 @@
       on(eventName: string,fun: Function) { }
       one(eventName: string,fun: Function) { }
       off(events: string) {}
-      trigger(eventName: string,...args) {}
+      trigger(eventName: string,...args) {} 
+      
+      static register() {
+         riot.class(this);
+      }     
    }
 
    export function endsWith(s, searchString, position?) {

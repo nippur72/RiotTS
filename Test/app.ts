@@ -7,7 +7,7 @@ function main() {
    });
    riot.route.start();
 
-   riot.class(Timer);
+   //riot.class(Timer);
    riot.mount('*');
 
    riot.route("welcome/nino.porcino");

@@ -15,6 +15,9 @@ var Riot;
                 args[_i - 1] = arguments[_i];
             }
         };
+        Element.register = function () {
+            riot.class(this);
+        };
         return Element;
     })();
     Riot.Element = Element;

@@ -24,4 +24,6 @@ class Timer extends Riot.Element
       this.update();
    }
 }
+
+Timer.register();
                      
