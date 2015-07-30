@@ -1,65 +1,59 @@
-﻿var RiotEvents = { mount: "mount", unmount: "unmount", update: "update", updated: "updated" };
+﻿module Riot
+{
+   export var Events = { mount: "mount", unmount: "unmount", update: "update", updated: "updated" };
 
-interface RiotSettings {
-   brackets: string;      
-}
+   export interface Settings {
+      brackets: string;      
+   }
 
-interface RiotObservable {
-   on(events: string,callback: Function);
-   one(events: string,callback: Function);
-   off(events: string);
-   trigger(eventName: string, ...args);
-}
+   export interface Observable {
+      on(events: string,callback: Function);
+      one(events: string,callback: Function);
+      off(events: string);
+      trigger(eventName: string, ...args);
+   }
 
-interface RiotRouter {
-   (callback: Function);
-   (to: string);
+   export interface Router {
+      (callback: Function);
+      (to: string);                       
 
-   start();
-   stop();
-   exec(callback: Function);
-   parser(parser: Function);
-}
+      start();
+      stop();
+      exec(callback: Function);
+      parser(parser: Function);
+   }
 
-interface RiotObject {
-   version: string;
-   settings: RiotSettings;
-   mount(customTagSelector: string,opts?: any): Array<RiotElement>;
-   mount(selector: string,tagName: string,opts?: any): Array<RiotElement>;
-   render(tagName: string,opts?: any): string;
-   tag(tagName: string, html: string,css?: string,attrs?: string,constructor?: Function);
-   tag(tagName: string, html: string, constructor?: Function);   
-   class(element: Function): void;
+   export interface Base {
+      version: string;
+      settings: Riot.Settings;
+      mount(customTagSelector: string,opts?: any): Array<Riot.Element>;
+      mount(selector: string,tagName: string,opts?: any): Array<Riot.Element>;
+      render(tagName: string,opts?: any): string;
+      tag(tagName: string, html: string,css?: string,attrs?: string,constructor?: Function);
+      tag(tagName: string, html: string, constructor?: Function);   
+      class(element: Function): void;
 
-   // TODO compiler and parser
+      // TODO compiler and parser
    
-   route: RiotRouter;
-}
+      route: Riot.Router;
+   }
 
-declare var riot: RiotObject;
+   export class Element implements Riot.Observable {
+      opts: any;
+      parent: any;
+      root: HTMLElement;
+      tags: any;
 
-class RiotElement implements RiotObservable{
-   opts: any;
-   parent: any;
-   root: HTMLElement;
-   tags: any;
+      update(data?: any) { }
+      unmount(keepTheParent?: boolean) { }
+      on(eventName: string,fun: Function) { }
+      one(eventName: string,fun: Function) { }
+      off(events: string) {}
+      trigger(eventName: string,...args) {}
+   }
 
-   update(data?: any) { }
-   unmount(keepTheParent?: boolean) { }
-   on(eventName: string,fun: Function) { }
-   one(eventName: string,fun: Function) { }
-   off(events: string) {}
-   trigger(eventName: string,...args) {}
-}
-
-/* String.prototype.endsWith polyfill */
-interface String {
-   endsWith(s: string, position?: number): boolean;    
-}
-
-if (!String.prototype.endsWith) {
-   String.prototype.endsWith = function (searchString, position) {
-      var subjectString = this.toString();
+   export function endsWith(s, searchString, position?) {
+      var subjectString = s.toString();
       if (position === undefined || position > subjectString.length) {
          position = subjectString.length;
       }
@@ -68,6 +62,8 @@ if (!String.prototype.endsWith) {
       return lastIndex !== -1 && lastIndex === position;
    };
 }
+
+declare var riot: Riot.Base;
 
 riot.class = function(element: Function) {
    var tagName;
@@ -96,7 +92,7 @@ riot.class = function(element: Function) {
          var elementId = template.substr(1);
          template = document.getElementById(elementId).innerHTML;         
       }
-      else if (template.endsWith(".html")) {
+      else if (Riot.endsWith(template,".html")) {
          var req = new XMLHttpRequest();
          // TODO do it asynchronously
          req.open("GET", template, false);

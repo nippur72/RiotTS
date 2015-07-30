@@ -70,4 +70,15 @@
     <TypeScriptSourceMap>false</TypeScriptSourceMap>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(SolutionDir)riot-ts.ts" "$(SolutionDir)\Test\bower_components\riot-ts"
+copy "$(SolutionDir)riot-ts.js" "$(SolutionDir)\Test\bower_components\riot-ts"
+copy "$(SolutionDir)riot-ts.js.map" "$(SolutionDir)\Test\bower_components\riot-ts"
+copy "$(SolutionDir)riot-ts.d.ts" "$(SolutionDir)\Test\bower_components\riot-ts"
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>

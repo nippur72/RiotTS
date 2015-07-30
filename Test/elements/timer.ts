@@ -1,4 +1,4 @@
-﻿class Timer extends RiotElement {
+﻿class Timer extends Riot.Element {
    time: number;   
    mylist = ["one", "two", "three"];
 
@@ -17,7 +17,7 @@
       this.time=opts.time||0;
       this.timerHandle=setInterval(() => this.ticks(),1000);      
 
-      this.on(RiotEvents.unmount,() => {         
+      this.on(Riot.Events.unmount,() => {         
          clearInterval(this.timerHandle);
       });
    }

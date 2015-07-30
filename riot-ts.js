@@ -1,31 +1,35 @@
-var RiotEvents = { mount: "mount", unmount: "unmount", update: "update", updated: "updated" };
-var RiotElement = (function () {
-    function RiotElement() {
-    }
-    RiotElement.prototype.update = function (data) { };
-    RiotElement.prototype.unmount = function (keepTheParent) { };
-    RiotElement.prototype.on = function (eventName, fun) { };
-    RiotElement.prototype.one = function (eventName, fun) { };
-    RiotElement.prototype.off = function (events) { };
-    RiotElement.prototype.trigger = function (eventName) {
-        var args = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            args[_i - 1] = arguments[_i];
+var Riot;
+(function (Riot) {
+    Riot.Events = { mount: "mount", unmount: "unmount", update: "update", updated: "updated" };
+    var Element = (function () {
+        function Element() {
         }
-    };
-    return RiotElement;
-})();
-if (!String.prototype.endsWith) {
-    String.prototype.endsWith = function (searchString, position) {
-        var subjectString = this.toString();
+        Element.prototype.update = function (data) { };
+        Element.prototype.unmount = function (keepTheParent) { };
+        Element.prototype.on = function (eventName, fun) { };
+        Element.prototype.one = function (eventName, fun) { };
+        Element.prototype.off = function (events) { };
+        Element.prototype.trigger = function (eventName) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+        };
+        return Element;
+    })();
+    Riot.Element = Element;
+    function endsWith(s, searchString, position) {
+        var subjectString = s.toString();
         if (position === undefined || position > subjectString.length) {
             position = subjectString.length;
         }
         position -= searchString.length;
         var lastIndex = subjectString.indexOf(searchString, position);
         return lastIndex !== -1 && lastIndex === position;
-    };
-}
+    }
+    Riot.endsWith = endsWith;
+    ;
+})(Riot || (Riot = {}));
 riot.class = function (element) {
     var tagName;
     var template;
@@ -52,7 +56,7 @@ riot.class = function (element) {
             var elementId = template.substr(1);
             template = document.getElementById(elementId).innerHTML;
         }
-        else if (template.endsWith(".html")) {
+        else if (Riot.endsWith(template, ".html")) {
             var req = new XMLHttpRequest();
             // TODO do it asynchronously
             req.open("GET", template, false);

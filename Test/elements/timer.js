@@ -11,7 +11,7 @@ var Timer = (function (_super) {
         this.mylist = ["one", "two", "three"];
         this.time = opts.time || 0;
         this.timerHandle = setInterval(function () { return _this.ticks(); }, 1000);
-        this.on(RiotEvents.unmount, function () {
+        this.on(Riot.Events.unmount, function () {
             clearInterval(_this.timerHandle);
         });
     }
@@ -34,5 +34,5 @@ var Timer = (function (_super) {
         this.update();
     };
     return Timer;
-})(RiotElement);
+})(Riot.Element);
 //# sourceMappingURL=timer.js.map
