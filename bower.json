@@ -21,5 +21,8 @@
     "RiotTS.*",
     "Test",
     "Web.*"
-  ]
+  ],
+  "dependencies": {
+    "riot": "~2.2.2"
+  }
 }
