@@ -38,6 +38,7 @@ class Car extends Riot.Observable
 var startJasmine = window.onload;
 window.onload = (e) =>
 {              
+   riot.mount('*');
    RunSpecs();   
    startJasmine(null);
 };
@@ -83,6 +84,23 @@ function RunSpecs()
       it("tests something",()=>
       {
          expect(!false).toBe(true);
+      });
+   });
+
+   describe("@component decorator", () => {
+      it('registers a regular element', () => {
+         var el = querySelector('#put_here');
+
+         var z = test1.createElement();                
+         el.appendChild(z);
+               
+         expect(!false).toBe(true);
+
+         /*
+         expect(implements(el, TestElement)).toBe(true);
+         expect(el["is"]).toBe(TestElement.prototype["is"]);         
+         expect(el.$.inner.innerHTML).toBe("innerelement");
+         */
       });
    });
 

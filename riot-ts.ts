@@ -28,10 +28,11 @@
    export interface Base {
       version: string;
       settings: Riot.Settings;
-      mount(customTagSelector: string,opts?: any): Array<Riot.Element>;
-      mount(selector: string,tagName: string,opts?: any): Array<Riot.Element>;
-      render(tagName: string,opts?: any): string;
-      tag(tagName: string, html: string,css?: string,attrs?: string,constructor?: Function);
+      mount(customTagSelector: string, opts?: any): Array<Riot.Element>;
+      mount(selector: string, tagName: string, opts?: any): Array<Riot.Element>;
+      mount(domNode: Node, tagName: string, opts?: any): Array<Riot.Element>;
+      render(tagName: string, opts?: any): string;
+      tag(tagName: string, html: string, css?: string, attrs?: string,constructor?: Function);
       tag(tagName: string, html: string, constructor?: Function);   
       class(element: Function): void;
       observable(object: any): void;
@@ -64,7 +65,14 @@
 
       static register() {
          riot.class(this);
-      }     
+      } 
+
+      static createElement(options?:any) {
+         var tagName = (this.prototype as any).tagName;
+         var el = document.createElement(tagName);        
+         riot.mount(el, tagName, options);   
+         return el;
+      }      
    }
 
    export function endsWith(s, searchString, position?) {

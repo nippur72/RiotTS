@@ -33,6 +33,12 @@ var Riot;
         Element.register = function () {
             riot.class(this);
         };
+        Element.createElement = function (options) {
+            var tagName = this.prototype.tagName;
+            var el = document.createElement(tagName);
+            riot.mount(el, tagName, options);
+            return el;
+        };
         return Element;
     })();
     Riot.Element = Element;

@@ -22,6 +22,7 @@ declare module Riot {
         settings: Riot.Settings;
         mount(customTagSelector: string, opts?: any): Array<Riot.Element>;
         mount(selector: string, tagName: string, opts?: any): Array<Riot.Element>;
+        mount(domNode: Node, tagName: string, opts?: any): Array<Riot.Element>;
         render(tagName: string, opts?: any): string;
         tag(tagName: string, html: string, css?: string, attrs?: string, constructor?: Function): any;
         tag(tagName: string, html: string, constructor?: Function): any;
@@ -47,6 +48,7 @@ declare module Riot {
         off(events: string): void;
         trigger(eventName: string, ...args: any[]): void;
         static register(): void;
+        static createElement(options?: any): HTMLAnchorElement;
     }
     function endsWith(s: any, searchString: any, position?: any): boolean;
 }

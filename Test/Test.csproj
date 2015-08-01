@@ -28,6 +28,7 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="elements\specElements.ts" />
     <TypeScriptCompile Include="specRunner.ts" />
     <TypeScriptCompile Include="index.ts" />
     <TypeScriptCompile Include="elements\timer.ts" />
