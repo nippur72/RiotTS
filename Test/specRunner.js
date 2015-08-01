@@ -1,36 +1,5 @@
 /// <reference path="bower_components/riot-ts/riot-ts.d.ts" />
 /// <reference path="typings/jasmine/jasmine.d.ts" />
-/*
-function main() {
-   riot.route((id,username) =>
-   {
-      console.log("hash changed to: "+id+"/"+username);
-   });
-   riot.route.start();
-  
-   riot.mount('*');
-
-   riot.route("welcome/nino.porcino");
-
-   var p = new Car();
-
-   p.trigger("start");
-}
-
-class Car extends Riot.Observable
-{
-   constructor()
-   {
-      super();
-
-      this.on('start', ()=>
-      {
-         console.log("car started!");
-      });
-   }
-}
-*/
-/// <reference path="typings/jasmine/jasmine.d.ts" />
 // jasmine boot.js links to window.onload 
 var startJasmine = window.onload;
 window.onload = function (e) {
@@ -49,6 +18,9 @@ function waitFor(F) {
 }
 function querySelector(s) {
     return document.querySelector(s);
+}
+function getClass(el) {
+    return el._tag;
 }
 // quickly checks if instance implements the class 
 function implements(instance, classFunction) {
@@ -72,19 +44,24 @@ function RunSpecs() {
         });
     });
     describe("@component decorator", function () {
-        it('registers a regular element', function () {
-            var el = querySelector('#put_here');
-            var z = test1.createElement();
-            el.appendChild(z);
-            expect(!false).toBe(true);
-            /*
-            expect(implements(el, TestElement)).toBe(true);
-            expect(el["is"]).toBe(TestElement.prototype["is"]);
-            expect(el.$.inner.innerHTML).toBe("innerelement");
-            */
+        var instance, el;
+        beforeAll(function () {
+            var root = querySelector('#put_here');
+            el = test1.createElement();
+            root.appendChild(el);
+            instance = getClass(el);
         });
+        it('creates correct element bodies', function () {
+            expect(instance.inner_div.innerHTML).toBe("test element");
+        });
+        it('creates elements with correct riot-tag', function () {
+            expect(instance.opts["riot-tag"]).toBe("test1");
+        });
+        it('creates elements with correct template', function () {
+            expect(el.innerHTML).toBe(instance.template);
+        });
+        // expect(implements(el, TestElement)).toBe(true);
     });
-    // TODO: test @component(tagname)
     // TODO: test @component(tagname,template)
     // TODO: test @template(template)
     // TODO: test template must be defined
@@ -97,20 +74,38 @@ function RunSpecs() {
     // TODO: test object well-formed
     // TODO: test el is observable
     // TODO: test options passing
-    // TODO: test observables
+    describe("Observable", function () {
+        var eventRaised = false;
+        beforeAll(function () {
+            var obs = new TestObservable();
+            obs.on("something-done", function () {
+                eventRaised = true;
+            });
+            obs.doSomething();
+        });
+        waitFor(function () { return eventRaised; });
+        it("can be observed for its events", function () {
+            expect(eventRaised).toBe(true);
+        });
+    });
 }
 /*
+function main() {
+   riot.route((id,username) =>
+   {
+      console.log("hash changed to: "+id+"/"+username);
+   });
+   riot.route.start();
+  
+   riot.mount('*');
+
+   riot.route("welcome/nino.porcino");
+}
+*/
+/* some random tests taken from nippur72/PolymerTS
+
 function RunSpecs()
 {
-   describe("webcomponents library", () => {
-      waitFor( () => polymerReady );
-
-      it("fires the event 'WebComponentsReady'", () =>
-      {
-         expect(polymerReady).toBe(true);
-      });
-   });
-
    describe("@component decorator", () => {
       it('registers regular elements', () => {
          var el:any = querySelector('#testElement');
@@ -131,38 +126,6 @@ function RunSpecs()
          expect(el1["is"]).toBe(TestElement.prototype["is"]);
          expect(el2["is"]).toBe(TestInput1.prototype["is"]);
          expect(el3["is"]).toBe(TestInput2.prototype["is"]);
-      });
-   });
-
-   describe("@extend decorator", () => {
-      it('extends builtin elements', () => {
-         var el = querySelector('#testInput2');
-         expect(implements(el, TestInput2)).toBe(true);
-      });
-   });
-
-   describe("a computed property", () =>
-   {
-      it('can be set with @computed decorator', () => {
-         var element = <ComputedPropertiesTest> <any> querySelector('#computedProperties1');
-
-         expect(element.computed1).toBe(2);
-         element.set('first', 2);
-         expect(element.computed1).toBe(3);
-         element.set('second', 4);
-         expect(element.computed1).toBe(6);
-
-         // TODO check for "get_"
-      });
-
-      it('can be set with @property decorator', () => {
-         var element=<ComputedPropertiesTest> <any> querySelector('#computedProperties2');
-
-         expect(element.computed2).toBe(2);
-         element.set('first', 2);
-         expect(element.computed2).toBe(3);
-         element.set('second', 4);
-         expect(element.computed2).toBe(6);
       });
    });
 
@@ -231,77 +194,6 @@ function RunSpecs()
 
       it("does not allow to redefine factoryImpl()", () => {
          expect(() => NoFactoryImplTest.register()).toThrow("do not use factoryImpl() use constructor() instead");
-      });
-   });
-
-   describe("@listen decorator", () => {
-      var el;
-
-      beforeEach(() => {
-         el=ListenerTest.create();
-         querySelector("#put_custom_constructor_here").appendChild(el);
-      });
-
-      // wait for the 'attached' event
-      waitFor(() => (el.bar=="foo"));
-                      
-      it("sets an event listener function", () => {
-         expect(el.bar).toBe("foo");
-      });
-   });
-
-   describe("@observe decorator", () => {
-      var el;
-
-      beforeEach(() => {
-         el = ObserverTest.create();
-         querySelector("#put_custom_constructor_here").appendChild(el);
-      });
-
-      // wait for the 'attached' event
-      waitFor(() => (el.bar=="mybar"));
-
-      it("observes a single property changes", () => {
-         expect((<ObserverTest>el).nbar_changed).toBe(0);
-         expect((<ObserverTest>el).nbar_foo_changed).toBe(0);
-         el.set("bar", "42");
-         expect((<ObserverTest>el).nbar_changed).toBe(1);
-         expect((<ObserverTest>el).nbar_foo_changed).toBe(1);
-      });
-
-      it("observes more than one property changes", () => {
-         expect((<ObserverTest>el).nbar_changed).toBe(0);
-         expect((<ObserverTest>el).nbar_foo_changed).toBe(0);
-         el.set("foo", "42");
-         expect((<ObserverTest>el).nbar_changed).toBe(0);
-         expect((<ObserverTest>el).nbar_foo_changed).toBe(1);
-      });
-
-      // TODO check path, deep path, array mutation
-   });
-
-   describe("@behavior decorator", () => {
-      var el1, el2;
-
-      beforeEach(() => {
-         el1=BehaviorTest1.create();
-         el2=BehaviorTest2.create();
-         querySelector("#put_custom_constructor_here").appendChild(el1);
-         querySelector("#put_custom_constructor_here").appendChild(el2);
-      });
-
-      // wait for the 'attached' event
-      waitFor(() => (el1.bar=="mybar"));
-
-      it("mixes code from another class (decorating the 'class' keyword)", () => {
-         expect(el1.hasfired).toBe(true);
-      });
-
-      // wait for the 'attached' event
-      waitFor(() => (el2.bar=="mybar"));
-
-      it("mixes code from another class (decorator inside the class body)", () => {
-         expect(el2.hasfired).toBe(true);
       });
    });
 

@@ -17,10 +17,19 @@ var test1 = (function (_super) {
         _super.apply(this, arguments);
     }
     test1 = __decorate([
-        component("test1"),
-        template("<div>test element</div>")
+        component("test1", '<div id="inner_div">test element</div>')
     ], test1);
     return test1;
 })(Riot.Element);
 test1.register();
+var TestObservable = (function (_super) {
+    __extends(TestObservable, _super);
+    function TestObservable() {
+        _super.apply(this, arguments);
+    }
+    TestObservable.prototype.doSomething = function () {
+        this.trigger("something-done");
+    };
+    return TestObservable;
+})(Riot.Observable);
 //# sourceMappingURL=specElements.js.map
