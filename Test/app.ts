@@ -10,7 +10,25 @@ function main() {
    riot.mount('*');
 
    riot.route("welcome/nino.porcino");
+
+   var p = new Car();
+
+   p.trigger("start");
 }
+
+class Car extends Riot.Observable
+{
+   constructor()
+   {
+      super();
+
+      this.on('start', ()=>
+      {
+         console.log("car started!"); 
+      });
+   }    
+}
+
 
 
 

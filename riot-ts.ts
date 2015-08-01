@@ -6,11 +6,15 @@
       brackets: string;      
    }
 
-   export interface Observable {
-      on(events: string,callback: Function);
-      one(events: string,callback: Function);
-      off(events: string);
-      trigger(eventName: string, ...args);
+   export class Observable {
+      on(events: string, callback: Function) {}
+      one(events: string, callback: Function) {}
+      off(events: string) {}
+      trigger(eventName: string, ...args) {}
+
+      constructor() {
+         riot.observable(this);
+      }
    }
 
    export interface Router {
@@ -32,6 +36,7 @@
       tag(tagName: string, html: string,css?: string,attrs?: string,constructor?: Function);
       tag(tagName: string, html: string, constructor?: Function);   
       class(element: Function): void;
+      observable(object: any): void;
 
       // TODO compiler and parser
    

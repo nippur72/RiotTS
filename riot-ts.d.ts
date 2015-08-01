@@ -8,11 +8,12 @@ declare module Riot {
     interface Settings {
         brackets: string;
     }
-    interface Observable {
-        on(events: string, callback: Function): any;
-        one(events: string, callback: Function): any;
-        off(events: string): any;
-        trigger(eventName: string, ...args: any[]): any;
+    class Observable {
+        on(events: string, callback: Function): void;
+        one(events: string, callback: Function): void;
+        off(events: string): void;
+        trigger(eventName: string, ...args: any[]): void;
+        constructor();
     }
     interface Router {
         (callback: Function): any;
@@ -31,6 +32,7 @@ declare module Riot {
         tag(tagName: string, html: string, css?: string, attrs?: string, constructor?: Function): any;
         tag(tagName: string, html: string, constructor?: Function): any;
         class(element: Function): void;
+        observable(object: any): void;
         route: Riot.Router;
     }
     class Element implements Riot.Observable {

@@ -1,6 +1,22 @@
 var Riot;
 (function (Riot) {
     Riot.Events = { mount: "mount", unmount: "unmount", update: "update", updated: "updated" };
+    var Observable = (function () {
+        function Observable() {
+            riot.observable(this);
+        }
+        Observable.prototype.on = function (events, callback) { };
+        Observable.prototype.one = function (events, callback) { };
+        Observable.prototype.off = function (events) { };
+        Observable.prototype.trigger = function (eventName) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+        };
+        return Observable;
+    })();
+    Riot.Observable = Observable;
     var Element = (function () {
         function Element() {
         }
