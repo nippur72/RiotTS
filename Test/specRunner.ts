@@ -85,6 +85,24 @@ function RunSpecs()
          expect(!false).toBe(true);
       });
    });
+
+   // TODO: test @component(tagname)
+   // TODO: test @component(tagname,template)
+   // TODO: test @template(template)
+   // TODO: test template must be defined
+   // TODO: test component must be defined
+   // TODO: test template from URL
+   // TODO: test template from script id
+   // TODO: test register
+   // TODO: test register twice
+   // TODO: test mounted(), unmounted(), updating(), updated()
+   // TODO: test object well-formed
+   // TODO: test el is observable
+   // TODO: test options passing
+
+   // TODO: test observables
+
+
 }
 
 /*
