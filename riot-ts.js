@@ -1,6 +1,5 @@
 var Riot;
 (function (Riot) {
-    Riot.Events = { mount: "mount", unmount: "unmount", update: "update", updated: "updated" };
     var Observable = (function () {
         function Observable() {
             riot.observable(this);
@@ -59,6 +58,14 @@ riot.class = function (element) {
             Object.keys(element.prototype).forEach(function (key) { return _this[key] = element.prototype[key]; });
             // calls class constructor applying it on "this"
             element.apply(this, [opts]);
+            if (element.prototype.mounted !== undefined)
+                this.on("mount", this.mounted);
+            if (element.prototype.unmounted !== undefined)
+                this.on("unmount", this.unmounted);
+            if (element.prototype.updating !== undefined)
+                this.on("update", this.updating);
+            if (element.prototype.updated !== undefined)
+                this.on("updated", this.updated);
         };
         riot.tag(tagName, template, transformFunction);
     }

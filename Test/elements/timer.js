@@ -19,13 +19,25 @@ var Timer = (function (_super) {
         this.mylist = ["one", "two", "three"];
         this.time = opts.time || 0;
         this.timerHandle = setInterval(function () { return _this.ticks(); }, 1000);
-        this.on(Riot.Events.unmount, function () {
+        this.on("unmount", function () {
             clearInterval(_this.timerHandle);
         });
     }
     Timer.prototype.ticks = function () {
         this.time++;
         this.update();
+    };
+    Timer.prototype.mounted = function () {
+        console.log("timer has been mounted");
+    };
+    Timer.prototype.unmounted = function () {
+        console.log("timer has been unmounted");
+    };
+    Timer.prototype.updating = function () {
+        console.log("timer is going to be updated");
+    };
+    Timer.prototype.updated = function () {
+        console.log("timer has been updated");
     };
     Timer = __decorate([
         component("timer"),

@@ -1,7 +1,5 @@
 ﻿module Riot
 {
-   export var Events = { mount: "mount", unmount: "unmount", update: "update", updated: "updated" };
-
    export interface Settings {
       brackets: string;      
    }
@@ -43,7 +41,15 @@
       route: Riot.Router;
    }
 
-   export class Element implements Riot.Observable {
+   export interface LifeCycle
+   {
+      mounted?(F: Function);
+      unmounted?(F: Function);
+      updating?(F: Function);
+      updated?(F: Function);
+   }
+
+   export class Element implements Riot.Observable, LifeCycle {
       opts: any;
       parent: any;
       root: HTMLElement;
@@ -54,8 +60,8 @@
       on(eventName: string,fun: Function) { }
       one(eventName: string,fun: Function) { }
       off(events: string) {}
-      trigger(eventName: string,...args) {} 
-      
+      trigger(eventName: string,...args) {}       
+
       static register() {
          riot.class(this);
       }     
@@ -84,6 +90,10 @@ riot.class = function(element: Function) {
          Object.keys(element.prototype).forEach((key) => this[key] = element.prototype[key]);
          // calls class constructor applying it on "this"
          element.apply(this, [opts]);
+         if(element.prototype.mounted   !== undefined) this.on("mount"   , this.mounted);
+         if(element.prototype.unmounted !== undefined) this.on("unmount" , this.unmounted);
+         if(element.prototype.updating  !== undefined) this.on("update"  , this.updating);
+         if(element.prototype.updated   !== undefined) this.on("updated" , this.updated);
       };
       riot.tag(tagName, template, transformFunction);         
    }

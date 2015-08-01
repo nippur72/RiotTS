@@ -1,10 +1,4 @@
 declare module Riot {
-    var Events: {
-        mount: string;
-        unmount: string;
-        update: string;
-        updated: string;
-    };
     interface Settings {
         brackets: string;
     }
@@ -35,7 +29,13 @@ declare module Riot {
         observable(object: any): void;
         route: Riot.Router;
     }
-    class Element implements Riot.Observable {
+    interface LifeCycle {
+        mounted?(F: Function): any;
+        unmounted?(F: Function): any;
+        updating?(F: Function): any;
+        updated?(F: Function): any;
+    }
+    class Element implements Riot.Observable, LifeCycle {
         opts: any;
         parent: any;
         root: HTMLElement;

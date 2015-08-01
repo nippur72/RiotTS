@@ -14,7 +14,7 @@ class Timer extends Riot.Element
       this.time=opts.time||0;
       this.timerHandle=setInterval(() => this.ticks(),1000);      
 
-      this.on(Riot.Events.unmount,() => {         
+      this.on("unmount",() => {         
          clearInterval(this.timerHandle);
       });
    }
@@ -22,6 +22,26 @@ class Timer extends Riot.Element
    ticks() {
       this.time++;
       this.update();
+   }
+
+   mounted()
+   {
+      console.log("timer has been mounted");    
+   }
+
+   unmounted()
+   {
+      console.log("timer has been unmounted");   
+   }
+
+   updating()
+   {
+      console.log("timer is going to be updated");      
+   }
+
+   updated()
+   {
+      console.log("timer has been updated");      
    }
 }
 
