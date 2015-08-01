@@ -23,11 +23,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="elements\timer.html" />
+    <Content Include="specRunner.html" />
     <Content Include="index.html" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="specRunner.ts" />
+    <TypeScriptCompile Include="index.ts" />
     <TypeScriptCompile Include="elements\timer.ts" />
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "riot-ts": "..\\..\\RiotTS"
+    "riot-ts": "..\\..\\RiotTS",
+    "jasmine": "~2.3.4"
   }
 }
