@@ -1,6 +1,6 @@
 # RiotTS
 
-Use [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeScript.
+Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeScript.
 
 # Table of contents
 
@@ -11,10 +11,10 @@ Use [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeScript.
 - [Decorators explained](#decorators)
 - [Lifecycle events shortcuts](#lifecycle)
 - [Observables](#observables)
+- Router
 - [Examples](#examples)
    - [A timer-based counter element](#timer_example)   
-- [Running the repo example](#repoexample)
-- [What it does, in short](#details)
+- [Running the tests](#repoexample)
 - [Known issues](#knownissues)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
@@ -28,7 +28,7 @@ bower install --save riot-ts
 
 This will also install `riot.js`.
 
-You'll get the following files in `bower_components/riot-ts`:
+You'll get the following files in `bower_components\riot-ts`:
 - `riot-ts.js` the JavaScript file to load via `<script src="">`
 - `riot-ts.min.js` as above, minified
 - `riot-ts.d.ts` the file to reference in your TypeScript code (`/// <reference path="...">`)
@@ -36,16 +36,20 @@ You'll get the following files in `bower_components/riot-ts`:
 
 # Supported features <a name="features"></a>
 
+- write elements as ES6 classes
 - `@component(tagName)` sets component's name 
 - `@template(name)` sets template from string or URL
-- `className.register()` registers in Riot
-- class constructor accepts options
+- `className.register()` registers the element in Riot
+- class constructor receives `options` as parameter
 
 # How to write elements <a name="howtowrite"></a>
 
-Differently from pure Riot.js, elements are defined as TypeScript classes extending the type `Riot.Element`. 
+Differently from pure [Riot.js](https://muut.com/riotjs/), in RiotTS elements are written 
+as TypeScript classes extending the type `Riot.Element`. 
 
 There are no external `.tag` files, HTML templates are defined as pure strings or are loaded from `.html` files.
+
+In brief:
 
 - Write elements as TypeScript classes
 - Extend the `Riot.Element` class 
@@ -57,7 +61,7 @@ A class-element:
 - can have private properties/fields
 - can use inherited properties and methods
 - can use TypeScript Mixins
-- options are passed to the class constructor
+- `options` are passed to the class constructor
 
 # How to correctly reference in markup <a name="howtoreference"></a>
 
@@ -94,6 +98,7 @@ MyElement.register();
 In `elements/my-element.html`:
 
 ```HTML
+<!-- notice there is no <my-element> tag -->
 <div>
    This is a my custom element
 </div>
@@ -103,16 +108,19 @@ In your main application file:
 
 ```TypeScript
 /// <reference path="../bower_components/riot-ts/riot-ts.d.ts" />
+
+//...
+
 riot.mount('*');
 ```
 
 # Decorators explained <a name="decorators"></a>
 
-## @component(tagName[,template]) <a name="component"></a>
+### @component(tagName[,template]) <a name="component"></a>
 
 Sets the tag name of the custom element. The decorator is applied on the `class` keyword.  
 
-The *template* parameter is optional and equivalent to `@template` decorator.
+The *template* parameter is optional and equivalent to the `@template` decorator.
 
 Example of a `<my-element>`:
  
@@ -123,13 +131,13 @@ class MyElement extends Riot.Element
 }
 ```
 
-## @template(templateParameter) <a name="template"></a>
+### @template(param) <a name="template"></a>
 
-Sets the template for the element. The template can be either:
+Sets the template for the element. The template parameter can be either:
 
 - a literal string e.g. `"<div>hello</div>"`
 - an external file ending in `.html` to be loaded syncronously
-- a script tag identifier e.g. "#temp" (looks for `<script id="temp">`)
+- a script tag identifier (e.g. `"#temp"` will look for `<script id="temp">`)
 
 Example of a `<my-element>`:
  
@@ -143,33 +151,32 @@ class MyElement extends Riot.Element
 
 # Lifecycle events shortcuts <a name="lifecycle"></a>
 
-Lifecycle events can be listened via the `this.on()` method or by defining the following methods in the class:
+Lifecycle events can be listened via `this.on()` or by defining the following methods in the class:
 
-- mounted() for the `mount` event
-- unmounted() for the `unmount` event
-- updating() for the `update` event
-- updated() for the `updated` event
+- `mounted()` for the `mount` event
+- `unmounted()` for the `unmount` event
+- `updating()` for the `update` event
+- `updated()` for the `updated` event
+
+Note: names ending in "-ed" have been choosen to not clash with already methods on the `Riot.Element` interface.
 
 Example:
 
 ```TypeScript
 @component("myel","<span></span>")
 class MyEl extends Riot.Element {
-
    constructor(opts) {      
       super();
       
-      // A: this is equivalent to B
+      // first way to listen to unmount event
       this.on("unmount",()=>
-      {
-         // 
+      {         
       });
    }
       
-   // B: this is equivalen to A
+   // alternated shorter way 
    unmounted()   
-   {         
-      //
+   {               
    }
 }
 ```
@@ -193,7 +200,7 @@ a.on("something-done", ()=> {
 });
 ```
 
-# Example <a name="examples"></a>
+# Examples <a name="examples"></a>
 
 ### A timer-based counter element <a name="timer_example"></a>
 ```TypeScript
@@ -239,7 +246,7 @@ Timer.register();
 riot.mount('*');   // mounts all elements
 ```
 
-# Running the example <a name="repoexample"></a>
+# Running the tests <a name="repoexample"></a>
 
 To run the "Test" project containing the Jasmine specs:
 
