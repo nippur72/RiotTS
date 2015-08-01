@@ -10,6 +10,7 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [How to correctly reference in markup](#howtoreference)
 - [Decorators explained](#decorators)
 - [Lifecycle events shortcuts](#lifecycle)
+- [How to create elements programmatically](#creating)
 - [Observables](#observables)
 - Router
 - [Examples](#examples)
@@ -56,6 +57,7 @@ In brief:
 - Use `@component` to define the tag's name
 - Use `@template` set the template string or load it from URL
 - register the element in riot via `className.register()`.
+- manually create istances with `className.createElement()`.
 
 A class-element:
 - can have private properties/fields
@@ -181,6 +183,22 @@ class MyEl extends Riot.Element {
 }
 ```
 
+# How to create elements programmatically <a name="creating"></a>
+
+To create an element to be attached to the DOM use the `creaeElement(opts)` method:
+
+```TypeScript
+var root = querySelector('#put_here');
+el = test1.createElement();                
+root.appendChild(el);         
+```
+
+The created element is an instance of `HTMLElement`. To access the related riot-element:
+
+```
+var riotel = (el as any)._tag;  // ._tag is undocumented
+```
+
 # Observables <a name="observables"></a>
 
 The Riot library lets you define `Observable` objects that are not UI elements:
@@ -267,5 +285,7 @@ If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
 
+- v0.0.5
+   - addded method `createElement()`
 - v0.0.0 to v0.0.4
-  - early experimental versions 
+   - early experimental versions 
