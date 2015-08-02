@@ -12,7 +12,7 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [Lifecycle events shortcuts](#lifecycle)
 - [How to create elements programmatically](#creating)
 - [Observables](#observables)
-- Router
+- [Router](#router)
 - [Examples](#examples)
    - [A timer-based counter element](#timer_example)   
 - [Running the tests](#repoexample)
@@ -216,6 +216,29 @@ var a = new MyObservable();
 a.on("something-done", ()=> {
    console.log("something has been done on 'a'!");
 });
+```
+
+# Router <a name="#router"></a>
+
+The Riot library comes also with a minimalistic router, the API is the same also in TypeScript.
+
+Example:
+
+```TypeScript
+// install router hash changed function
+riot.route((id,username) =>
+{
+   console.log(`hash changed to: id=${id} username=${username}`);
+});
+
+// start the router
+riot.route.start();
+
+// route to an address
+riot.route("welcome/nino.porcino");
+
+// stop the router
+riot.route.stop();
 ```
 
 # Examples <a name="examples"></a>
