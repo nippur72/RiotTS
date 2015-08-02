@@ -64,7 +64,7 @@
       trigger(eventName: string,...args) {}       
 
       static register() {
-         riot.class(this);
+         registerClass(this);
       } 
 
       static createElement(options?:any) {
@@ -75,7 +75,7 @@
       }      
    }
 
-   export function endsWith(s, searchString, position?) {
+   function endsWith(s, searchString, position?) {
       var subjectString = s.toString();
       if (position === undefined || position > subjectString.length) {
          position = subjectString.length;
@@ -84,56 +84,58 @@
       var lastIndex = subjectString.indexOf(searchString, position);
       return lastIndex !== -1 && lastIndex === position;
    };
+
+   export function registerClass(element: Function) {
+      var tagName;
+      var template: string;
+
+      function registerTag(tagName: string, template: string) {
+         var transformFunction = function (opts) {
+            // copies prototype into "this"
+            Object.keys(element.prototype).forEach((key) => this[key] = element.prototype[key]);
+            // calls class constructor applying it on "this"
+            element.apply(this, [opts]);
+            if(element.prototype.mounted   !== undefined) this.on("mount"   , this.mounted);
+            if(element.prototype.unmounted !== undefined) this.on("unmount" , this.unmounted);
+            if(element.prototype.updating  !== undefined) this.on("update"  , this.updating);
+            if(element.prototype.updated   !== undefined) this.on("updated" , this.updated);
+         };
+         riot.tag(tagName, template, transformFunction);         
+      }
+
+      // gets tag name from tagName property
+      if (Object.keys(element.prototype).indexOf("tagName") >= 0) {
+         tagName = element.prototype.tagName;
+      }
+      else throw "tagName property not specified"; 
+
+      // gets string template, directly, via #id or via http request
+      if(Object.keys(element.prototype).indexOf("template")>=0) {
+         template=element.prototype.template;
+         // Obsolete: load template from script tag
+         //if (template.charAt(0) == "#") {
+         //   var elementId = template.substr(1);
+         //   template = document.getElementById(elementId).innerHTML;         
+         //} else 
+         if (endsWith(template,".html")) {
+            var req = new XMLHttpRequest();
+            // TODO do it asynchronously
+            req.open("GET", template, false);
+            req.send();
+            if (req.status == 200) {
+               template = req.responseText;
+               registerTag(tagName, template);
+            }
+            return;
+         }
+         else registerTag(tagName, template);
+      }
+      else throw "template property not specified";   
+   }
+
 }
 
 declare var riot: Riot.Base;
-
-riot.class = function(element: Function) {
-   var tagName;
-   var template: string;
-
-   function registerTag(tagName: string, template: string) {
-      var transformFunction = function (opts) {
-         // copies prototype into "this"
-         Object.keys(element.prototype).forEach((key) => this[key] = element.prototype[key]);
-         // calls class constructor applying it on "this"
-         element.apply(this, [opts]);
-         if(element.prototype.mounted   !== undefined) this.on("mount"   , this.mounted);
-         if(element.prototype.unmounted !== undefined) this.on("unmount" , this.unmounted);
-         if(element.prototype.updating  !== undefined) this.on("update"  , this.updating);
-         if(element.prototype.updated   !== undefined) this.on("updated" , this.updated);
-      };
-      riot.tag(tagName, template, transformFunction);         
-   }
-
-   // gets tag name from tagName property
-   if (Object.keys(element.prototype).indexOf("tagName") >= 0) {
-      tagName = element.prototype.tagName;
-   }
-   else throw "tagName property not specified"; 
-
-   // gets string template, directly, via #id or via http request
-   if(Object.keys(element.prototype).indexOf("template")>=0) {
-      template=element.prototype.template;
-      if (template.charAt(0) == "#") {
-         var elementId = template.substr(1);
-         template = document.getElementById(elementId).innerHTML;         
-      }
-      else if (Riot.endsWith(template,".html")) {
-         var req = new XMLHttpRequest();
-         // TODO do it asynchronously
-         req.open("GET", template, false);
-         req.send();
-         if (req.status == 200) {
-            template = req.responseText;
-            registerTag(tagName, template);
-         }
-         return;
-      }
-      else registerTag(tagName, template);
-   }
-   else throw "template property not specified";   
-}
 
 // @component decorator
 function component(tagname: string, template?: string) {

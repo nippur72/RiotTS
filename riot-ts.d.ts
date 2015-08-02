@@ -50,7 +50,7 @@ declare module Riot {
         static register(): void;
         static createElement(options?: any): HTMLAnchorElement;
     }
-    function endsWith(s: any, searchString: any, position?: any): boolean;
+    function registerClass(element: Function): void;
 }
 declare var riot: Riot.Base;
 declare function component(tagname: string, template?: string): (target: Function) => void;

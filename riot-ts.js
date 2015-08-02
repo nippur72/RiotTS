@@ -31,7 +31,7 @@ var Riot;
             }
         };
         Element.register = function () {
-            riot.class(this);
+            registerClass(this);
         };
         Element.createElement = function (options) {
             var tagName = this.prototype.tagName;
@@ -51,60 +51,61 @@ var Riot;
         var lastIndex = subjectString.indexOf(searchString, position);
         return lastIndex !== -1 && lastIndex === position;
     }
-    Riot.endsWith = endsWith;
     ;
-})(Riot || (Riot = {}));
-riot.class = function (element) {
-    var tagName;
-    var template;
-    function registerTag(tagName, template) {
-        var transformFunction = function (opts) {
-            var _this = this;
-            // copies prototype into "this"
-            Object.keys(element.prototype).forEach(function (key) { return _this[key] = element.prototype[key]; });
-            // calls class constructor applying it on "this"
-            element.apply(this, [opts]);
-            if (element.prototype.mounted !== undefined)
-                this.on("mount", this.mounted);
-            if (element.prototype.unmounted !== undefined)
-                this.on("unmount", this.unmounted);
-            if (element.prototype.updating !== undefined)
-                this.on("update", this.updating);
-            if (element.prototype.updated !== undefined)
-                this.on("updated", this.updated);
-        };
-        riot.tag(tagName, template, transformFunction);
-    }
-    // gets tag name from tagName property
-    if (Object.keys(element.prototype).indexOf("tagName") >= 0) {
-        tagName = element.prototype.tagName;
-    }
-    else
-        throw "tagName property not specified";
-    // gets string template, directly, via #id or via http request
-    if (Object.keys(element.prototype).indexOf("template") >= 0) {
-        template = element.prototype.template;
-        if (template.charAt(0) == "#") {
-            var elementId = template.substr(1);
-            template = document.getElementById(elementId).innerHTML;
+    function registerClass(element) {
+        var tagName;
+        var template;
+        function registerTag(tagName, template) {
+            var transformFunction = function (opts) {
+                var _this = this;
+                // copies prototype into "this"
+                Object.keys(element.prototype).forEach(function (key) { return _this[key] = element.prototype[key]; });
+                // calls class constructor applying it on "this"
+                element.apply(this, [opts]);
+                if (element.prototype.mounted !== undefined)
+                    this.on("mount", this.mounted);
+                if (element.prototype.unmounted !== undefined)
+                    this.on("unmount", this.unmounted);
+                if (element.prototype.updating !== undefined)
+                    this.on("update", this.updating);
+                if (element.prototype.updated !== undefined)
+                    this.on("updated", this.updated);
+            };
+            riot.tag(tagName, template, transformFunction);
         }
-        else if (Riot.endsWith(template, ".html")) {
-            var req = new XMLHttpRequest();
-            // TODO do it asynchronously
-            req.open("GET", template, false);
-            req.send();
-            if (req.status == 200) {
-                template = req.responseText;
-                registerTag(tagName, template);
-            }
-            return;
+        // gets tag name from tagName property
+        if (Object.keys(element.prototype).indexOf("tagName") >= 0) {
+            tagName = element.prototype.tagName;
         }
         else
-            registerTag(tagName, template);
+            throw "tagName property not specified";
+        // gets string template, directly, via #id or via http request
+        if (Object.keys(element.prototype).indexOf("template") >= 0) {
+            template = element.prototype.template;
+            // Obsolete: load template from script tag
+            //if (template.charAt(0) == "#") {
+            //   var elementId = template.substr(1);
+            //   template = document.getElementById(elementId).innerHTML;         
+            //} else 
+            if (endsWith(template, ".html")) {
+                var req = new XMLHttpRequest();
+                // TODO do it asynchronously
+                req.open("GET", template, false);
+                req.send();
+                if (req.status == 200) {
+                    template = req.responseText;
+                    registerTag(tagName, template);
+                }
+                return;
+            }
+            else
+                registerTag(tagName, template);
+        }
+        else
+            throw "template property not specified";
     }
-    else
-        throw "template property not specified";
-};
+    Riot.registerClass = registerClass;
+})(Riot || (Riot = {}));
 // @component decorator
 function component(tagname, template) {
     return function (target) {

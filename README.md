@@ -139,7 +139,6 @@ Sets the template for the element. The template parameter can be either:
 
 - a literal string e.g. `"<div>hello</div>"`
 - an external file ending in `.html` to be loaded syncronously
-- a script tag identifier (e.g. `"#temp"` will look for `<script id="temp">`)
 
 Example of a `<my-element>`:
  
