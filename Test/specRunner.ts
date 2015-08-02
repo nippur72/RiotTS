@@ -50,15 +50,7 @@ function implements(instance: Object, classFunction: Function)
 }
 
 function RunSpecs()
-{
-   describe("A jasmine spec", () => 
-   {
-      it("tests something",()=>
-      {
-         expect(!false).toBe(true);
-      });
-   });
-
+{   
    describe("@component decorator", () => {
       var instance,el;
 
@@ -71,7 +63,7 @@ function RunSpecs()
       });
 
       it('creates correct element bodies', () => {
-         expect(instance.inner_div.innerHTML).toBe("test element");         
+         expect(instance.inner_div.innerHTML).toBe("test1 element");         
       });
 
       it('creates elements with correct riot-tag', () => {         
@@ -86,18 +78,113 @@ function RunSpecs()
 
    });
    
-   // TODO: test @component(tagname,template)
-   // TODO: test @template(template)
-   // TODO: test template must be defined
-   // TODO: test component must be defined
-   // TODO: test template from URL
-   // TODO: test template from script id
-   // TODO: test register
-   // TODO: test register twice
-   // TODO: test mounted(), unmounted(), updating(), updated()
+   describe("@template decorator", () => {
+      var instance,el;
+      var instance1,el1;
+
+      beforeAll(()=>
+      {
+         var root = querySelector('#put_here');
+         el = test2.createElement();                
+         root.appendChild(el);         
+         instance = getClass(el);
+
+         el1 = test_template_from_url.createElement();                
+         root.appendChild(el1);         
+         instance1 = getClass(el1);
+      });
+
+      it('creates correct element bodies', () => {
+         expect(instance.inner_div.innerHTML).toBe("test2 element");         
+      });
+
+      it('creates elements with correct template', () => {         
+         expect(el.innerHTML).toBe(instance.template);
+      });
+
+      it('can load templates from .html files', () => {         
+         expect(el1.innerHTML).toBe("<div>template from URL</div>");
+      });      
+   });
+
+   describe("register()", () => {
+      it('throws an error if no tag name is specified', () => {                  
+         expect(()=>testNoTagName.register()).toThrow("tagName property not specified");
+      });
+
+      it('throws an error if no template is specified', () => {                  
+         expect(()=>testNoTemplate.register()).toThrow("template property not specified");
+      });
+
+      /*
+      it('throws an error if no template is specified', () => {    
+         expect(()=>testDoubleRegister.register()).not.toThrow();
+         expect(()=>testDoubleRegister.register()).toThrow();
+      });
+      */
+   });
+
    // TODO: test object well-formed
    // TODO: test el is observable
-   // TODO: test options passing
+
+   describe("lifecycle helper methods", () => {
+      var el, instance: test_lifecycle;
+
+      beforeAll(()=>
+      {
+         var root = querySelector('#put_here');
+         test_lifecycle.register();
+         el = test_lifecycle.createElement();                
+         root.appendChild(el);         
+         instance = getClass(el);
+         instance.unmount();
+      });
+
+      waitFor(()=>instance.sequence!="");
+
+      it('are executed, all in the correct order', () => {                  
+         expect(instance.sequence).toBe("1234");
+      });
+   });
+
+   describe("createElement()", () => {
+      var el1, el2, el3, 
+          i1: test_options, 
+          i2: test_options, 
+          i3: test_options;
+
+      beforeAll(()=>
+      {
+         var root = querySelector('#put_here');
+         test_options.register();
+
+         el1 = test_options.createElement();                
+         el2 = test_options.createElement({bar: "BAR"});                
+         el3 = test_options.createElement({bar: "BAR", foo: "FOO"});                         
+
+         root.appendChild(el1);         
+         root.appendChild(el2);         
+         root.appendChild(el3);         
+         i1 = getClass(el1);
+         i2 = getClass(el2);
+         i3 = getClass(el3);
+      });     
+
+      it('works with no parameter specified', () => {                  
+         expect(i1.bar).toBe("default bar");
+         expect(i1.foo).toBe("default foo");
+      });
+
+      it('works with partial parameter specified', () => {                  
+         expect(i2.bar).toBe("BAR");
+         expect(i2.foo).toBe("default foo");
+      });
+
+      it('works with full parameter specified', () => {                  
+         expect(i3.bar).toBe("BAR");
+         expect(i3.foo).toBe("FOO");
+      });
+   });
 
    describe("Observable", () =>
    {
@@ -123,175 +210,4 @@ function RunSpecs()
       });
    });   
 }
-
-/*
-function main() {
-   riot.route((id,username) =>
-   {
-      console.log("hash changed to: "+id+"/"+username);
-   });
-   riot.route.start();
-  
-   riot.mount('*');
-
-   riot.route("welcome/nino.porcino");
-}
-*/
-
-
-/* some random tests taken from nippur72/PolymerTS
-
-function RunSpecs()
-{
-   describe("@component decorator", () => {
-      it('registers regular elements', () => {
-         var el:any = querySelector('#testElement');
-         expect(implements(el, TestElement)).toBe(true);
-         expect(el["is"]).toBe(TestElement.prototype["is"]);         
-         expect(el.$.inner.innerHTML).toBe("innerelement");
-      });
-
-      it('extends builtin elements using second argument', () => {
-         var el = querySelector('#testInput1');
-         expect(implements(el, TestInput1)).toBe(true);
-      });
-
-      it("sets 'is:' correctly", () => {
-         var el1 = querySelector('#testElement');
-         var el2 = querySelector('#testInput1');
-         var el3 = querySelector('#testInput2');
-         expect(el1["is"]).toBe(TestElement.prototype["is"]);
-         expect(el2["is"]).toBe(TestInput1.prototype["is"]);
-         expect(el3["is"]).toBe(TestInput2.prototype["is"]);
-      });
-   });
-
-   describe("custom constructor", () =>
-   {
-      var elementConstructor, el;
-
-      beforeEach(() =>
-      {
-         // create the element                  
-         el = CustomConstructorTest.create("42");         
-         
-         // connect it to DOM         
-         querySelector("#put_custom_constructor_here").appendChild(el);
-      });
-
-      // wait for the 'attached' event
-      waitFor(() => (el.bar == "42"));
-
-      it("provides custom initialization", () =>
-      {
-         expect(el.bar).toBe("42");
-      });         
-   });
-
-   describe("constructor()", () => {
-      var el;
-
-      beforeEach(() => {
-         // create the element
-         el = PropertyInitializationTest.create();
-
-         // connect it to DOM
-         querySelector("#put_custom_constructor_here").appendChild(el);
-      });
-
-      // wait for the 'attached' event
-      waitFor(() => (el.bar == "mybar"));
-
-      it("initializes properties correctly", () => {
-         expect(el.bar).toBe("mybar");
-         expect(el.foo).toBe("myfoo");
-         expect(el.war).toBe("mywar");
-      });
-   });
-
-   describe("polymer.Base", () => {
-      it("doesn't allow an element to be used before it's registered", () => {
-         expect(()=>UnInitializedTest.create()).toThrow("element not yet registered in Polymer");
-      });
-
-      it("doesn't allow an element to be registered twice", () => {
-         expect(() => DoubleInitializationTest.register() ).not.toThrow();
-         expect(() => DoubleInitializationTest.register() ).toThrow("element already registered in Polymer");                  
-      });
-
-      it("create elements that are extensions of HTMLElement", () => { 
-         var el = DoubleInitializationTest.create();                 
-         expect(implements(el, HTMLElement)).toBe(true);
-      });
-
-      it("create elements that are extensions Polymer.Base", () => {
-         var el=DoubleInitializationTest.create();
-         expect(implements(el, Polymer.Base)).toBe(true);
-      });
-
-      it("does not allow to redefine factoryImpl()", () => {
-         expect(() => NoFactoryImplTest.register()).toThrow("do not use factoryImpl() use constructor() instead");
-      });      
-   });
-
-   describe("@template/@style decorators", () => {
-      var el;
-
-      beforeEach(() => {         
-         el = TemplateTest.create();         
-         querySelector("#put_test_elements_here").appendChild(el);
-      });
-
-      // wait for the 'attached' event
-      waitFor(() => (el.bar=="mybar"));
-
-      it("provide a template for the element", () => {         
-         expect(el.$.inner.innerHTML).toBe("inner text");
-      });
-      
-      it("provide a style for the element", () => {        
-         expect(el.$.inner.clientWidth).toBe(50);
-      });
-   });
-
-   describe("@hostAttributes decorator", () => {
-      var el;
-
-      beforeEach(() => {
-         el=HostAttributesTest.create();
-         querySelector("#put_test_elements_here").appendChild(el);
-      });
-
-      // wait for the 'attached' event
-      waitFor(() => (el.bar=="mybar"));
-
-      it("sets attributes on the host element", () => {
-         expect(el.style.color).toBe("red");
-      });
-   });
-
-   describe("element class", () => {
-      var el: ExtendedElementTest;
-
-      beforeEach(() => {
-         el = <any> ExtendedElementTest.create();
-         querySelector("#put_test_elements_here").appendChild(<any> el);
-      });
-
-      // wait for the 'attached' event
-      waitFor(() => (el.bar=="mybar"));
-
-      it("can be extended with 'extends'", () => {
-         expect(el.prop).toBe("AB");
-      });
-
-      it("can be mixed with TypeScript mixins", () => {
-         expect(el.pmix).toBe("C");
-      });
-   });
-}
-*/
-
-
-
                      
