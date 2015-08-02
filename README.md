@@ -306,7 +306,8 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
-
+- v0.0.6
+   - deprecated loading templates from named tags
 - v0.0.5
    - addded method `createElement()`
 - v0.0.0 to v0.0.4
