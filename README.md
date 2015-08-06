@@ -217,7 +217,7 @@ a.on("something-done", ()=> {
 });
 ```
 
-# Router <a name="#router"></a>
+# Router <a name="router"></a>
 
 The Riot library comes also with a minimalistic router, the API is the same also in TypeScript.
 
