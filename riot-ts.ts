@@ -36,8 +36,13 @@
       tag(tagName: string, html: string, constructor?: Function);   
       class(element: Function): void;
       observable(object: any): void;
+      
+      compile(callback: Function): void;
+      compile(url: string, callback: Function): void;
+      compile(tag: string): string;
+      compile(tag: string, dontExecute: boolean): string;
 
-      // TODO compiler and parser
+      // TODO server-only methods
    
       route: Riot.Router;
    }
@@ -100,7 +105,24 @@
             if(element.prototype.updating  !== undefined) this.on("update"  , this.updating);
             if(element.prototype.updated   !== undefined) this.on("updated" , this.updated);
          };
-         riot.tag(tagName, template, transformFunction);         
+
+         // compile using riot.compile
+         {
+            var dummyHtml = `<${tagName}>${template}</${tagName}>`;
+            var compiled = riot.compile(dummyHtml,true);
+            var stripped = compiled.substr(12+tagName.length);
+            var x = stripped.lastIndexOf(", function(opts) {");
+            stripped = stripped.substr(0,x);
+
+            var compiledTemplate = eval("["+stripped+"]");
+            var html = compiledTemplate.length>0 ? compiledTemplate[0] : "";
+            var css  = compiledTemplate.length>1 ? compiledTemplate[1] : "";
+            var attr = compiledTemplate.length>2 ? compiledTemplate[2] : undefined;
+
+            riot.tag(tagName, html, css, attr, transformFunction);         
+         }
+
+         //riot.tag(tagName, template, transformFunction);         
       }
 
       // gets tag name from tagName property

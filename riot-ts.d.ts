@@ -28,6 +28,10 @@ declare module Riot {
         tag(tagName: string, html: string, constructor?: Function): any;
         class(element: Function): void;
         observable(object: any): void;
+        compile(callback: Function): void;
+        compile(url: string, callback: Function): void;
+        compile(tag: string): string;
+        compile(tag: string, dontExecute: boolean): string;
         route: Riot.Router;
     }
     interface LifeCycle {

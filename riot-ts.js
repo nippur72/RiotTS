@@ -71,7 +71,20 @@ var Riot;
                 if (element.prototype.updated !== undefined)
                     this.on("updated", this.updated);
             };
-            riot.tag(tagName, template, transformFunction);
+            // compile using riot.compile
+            {
+                var dummyHtml = "<" + tagName + ">" + template + "</" + tagName + ">";
+                var compiled = riot.compile(dummyHtml, true);
+                var stripped = compiled.substr(12 + tagName.length);
+                var x = stripped.lastIndexOf(", function(opts) {");
+                stripped = stripped.substr(0, x);
+                var compiledTemplate = eval("[" + stripped + "]");
+                var html = compiledTemplate.length > 0 ? compiledTemplate[0] : "";
+                var css = compiledTemplate.length > 1 ? compiledTemplate[1] : "";
+                var attr = compiledTemplate.length > 2 ? compiledTemplate[2] : undefined;
+                riot.tag(tagName, html, css, attr, transformFunction);
+            }
+            //riot.tag(tagName, template, transformFunction);         
         }
         // gets tag name from tagName property
         if (Object.keys(element.prototype).indexOf("tagName") >= 0) {
