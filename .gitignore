@@ -1,5 +1,4 @@
 .vs/
-*.map
 bin/
 obj/
 node_modules/
