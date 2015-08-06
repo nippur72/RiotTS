@@ -13,8 +13,7 @@
     "!riot-ts.*",
     "!LICENSE.txt",
     "!README.md"
-  ],
-  ],
+  ],  
   "dependencies": {
     "riot": "~2.2.2"
   }
