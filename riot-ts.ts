@@ -108,7 +108,8 @@
 
          // compile using riot.compile
          {
-            var dummyHtml = `<${tagName}>${template}</${tagName}>`;
+            var templateNoNewLines = template.split('\n').join(' ');
+            var dummyHtml = `<${tagName}>${templateNoNewLines}</${tagName}>`;
             var compiled = riot.compile(dummyHtml,true);
             var stripped = compiled.substr(12+tagName.length);
             var x = stripped.lastIndexOf(", function(opts) {");
