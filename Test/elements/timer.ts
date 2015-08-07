@@ -1,6 +1,4 @@
-﻿@component("timer")
-
-@template("elements/timer.html")
+﻿@template("elements/timer.html")
 
 class Timer extends Riot.Element 
 {

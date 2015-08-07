@@ -8,7 +8,7 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [Supported features](#features)
 - [How to write elements](#howtowrite)
 - [How to correctly reference in markup](#howtoreference)
-- [Decorators explained](#decorators)
+- [The @template decorator](#template)
 - [Lifecycle events shortcuts](#lifecycle)
 - [How to create elements programmatically](#creating)
 - [Observables](#observables)
@@ -35,11 +35,10 @@ You'll get the following files in `bower_components\riot-ts`:
 - `riot-ts.d.ts` the file to reference in your TypeScript code (`/// <reference path="...">`)
 - `riot-ts.ts` the source TypeScript file for debugging purposes
 
-# Supported features <a name="features"></a>
+# Supported features <a name="features"></a>                           
 
 - write elements as ES6 classes
-- `@component(tagName)` sets component's name 
-- `@template(name)` sets template from string or URL
+- `@template()` sets template from string or URL
 - `className.register()` registers the element in Riot
 - class constructor receives `options` as parameter
 
@@ -54,8 +53,7 @@ In brief:
 
 - Write elements as TypeScript classes
 - Extend the `Riot.Element` class 
-- Use `@component` to define the tag's name
-- Use `@template` set the template string or load it from URL
+- Use `@template` to define the template string or load it from URL
 - register the element in riot via `className.register()`.
 - manually create istances with `className.createElement()`.
 
@@ -73,6 +71,7 @@ In the `head` section of your main .html file:
 <head>
    <!-- loads riot and riot-ts -->
    <script type="text/javascript" src="bower_components/riot/riot.js"></script>        
+   <script type="text/javascript" src="bower_components/riot/compiler.js"></script>        
    <script type="text/javascript" src="bower_components/riot-ts/riot-ts.js"></script>   
 
    <!-- custom elements -->
@@ -86,7 +85,6 @@ In the `head` section of your main .html file:
 In your element TypeScript code (e.g. `elements/my-element.ts`):
 
 ```TypeScript
-@component("my-element")
 @template("my-element.html")
 class MyElement extends Riot.Element
 {
@@ -101,9 +99,11 @@ In `elements/my-element.html`:
 
 ```HTML
 <!-- notice there is no <my-element> tag -->
-<div>
-   This is a my custom element
-</div>
+<my-element>
+   <div>
+      This is a my custom element
+   </div>
+</my-element>
 ```
 
 In your main application file:
@@ -116,36 +116,22 @@ In your main application file:
 riot.mount('*');
 ```
 
-# Decorators explained <a name="decorators"></a>
+# The @template decorator <a name="template"></a>
 
-### @component(tagName[,template]) <a name="component"></a>
-
-Sets the tag name of the custom element. The decorator is applied on the `class` keyword.  
-
-The *template* parameter is optional and equivalent to the `@template` decorator.
-
-Example of a `<my-element>`:
- 
-```TypeScript
-@component("my-element","my-element.html")
-class MyElement extends Riot.Element
-{
-}
 ```
-
-### @template(param) <a name="template"></a>
+@template(param)
+```
 
 Sets the template for the element. The template parameter can be either:
 
-- a literal string e.g. `"<div>hello</div>"`
+- a literal string e.g. `"<my-hello><div>hello</div></my-hello>"`
 - an external file ending in `.html` to be loaded syncronously
 
-Example of a `<my-element>`:
+Example of an element `<my-hello>`:
  
 ```TypeScript
-@component("my-element")
-@template("<div>Hello</div>")
-class MyElement extends Riot.Element
+@template("<my-hello><div>hello</div></my-hello>")
+class MyHello extends Riot.Element
 {
 }
 ```
@@ -164,7 +150,7 @@ Note: names ending in "-ed" have been choosen to not clash with already methods 
 Example:
 
 ```TypeScript
-@component("myel","<span></span>")
+@template("<myel><span></span></myel>")
 class MyEl extends Riot.Element {
    constructor(opts) {      
       super();
@@ -244,13 +230,14 @@ riot.route.stop();
 
 ### A timer-based counter element <a name="timer_example"></a>
 ```TypeScript
-@component("timer")
-
-@template(`<div>
-             timer: { time }<br>
-             trasclusion is '<yield/>'<br>                 
-             <div each="{el in mylist}">iterating over array item "{el}"<br></div>
-           </div>`)
+@template(`
+<timer>
+   <div>
+      timer: { time }<br>
+      trasclusion is '<yield/>'<br>                 
+      <div each="{el in mylist}">iterating over array item "{el}"<br></div>
+   </div>
+</timer>`)
 
 class Timer extends Riot.Element {
    time: number;
@@ -306,6 +293,8 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.0.8
+   - new @template syntax, @component syntax obsolete
 - v0.0.6
    - deprecated loading templates from named tags
 - v0.0.5

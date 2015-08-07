@@ -57,5 +57,4 @@ declare module Riot {
     function registerClass(element: Function): void;
 }
 declare var riot: Riot.Base;
-declare function component(tagname: string, template?: string): (target: Function) => void;
 declare function template(template: string): (target: Function) => void;

@@ -90,11 +90,10 @@
       return lastIndex !== -1 && lastIndex === position;
    };
 
-   export function registerClass(element: Function) {
-      var tagName;
-      var template: string;
+   export function registerClass(element: Function) {    
+      
+      function registerTag(template: string) {
 
-      function registerTag(tagName: string, template: string) {
          var transformFunction = function (opts) {
             // copies prototype into "this"
             Object.keys(element.prototype).forEach((key) => this[key] = element.prototype[key]);
@@ -105,71 +104,50 @@
             if(element.prototype.updating  !== undefined) this.on("update"  , this.updating);
             if(element.prototype.updated   !== undefined) this.on("updated" , this.updated);
          };
+         
+         var compiled = riot.compile(template,true);
+         var stripped = compiled.substr(9);
+         var x = stripped.lastIndexOf(", function(opts) {");
+         stripped = stripped.substr(0,x);
 
-         // compile using riot.compile
-         {
-            var templateNoNewLines = template.split('\n').join(' ');
-            var dummyHtml = `<${tagName}>${templateNoNewLines}</${tagName}>`;
-            var compiled = riot.compile(dummyHtml,true);
-            var stripped = compiled.substr(12+tagName.length);
-            var x = stripped.lastIndexOf(", function(opts) {");
-            stripped = stripped.substr(0,x);
+         var compiledTemplate = eval("["+stripped+"]");
 
-            var compiledTemplate = eval("["+stripped+"]");
-            var html = compiledTemplate.length>0 ? compiledTemplate[0] : "";
-            var css  = compiledTemplate.length>1 ? compiledTemplate[1] : "";
-            var attr = compiledTemplate.length>2 ? compiledTemplate[2] : undefined;
+         var tagName = compiledTemplate.length>0 ? compiledTemplate[0] : "";
+         var html    = compiledTemplate.length>1 ? compiledTemplate[1] : "";
+         var css     = compiledTemplate.length>2 ? compiledTemplate[2] : "";
+         var attr    = compiledTemplate.length>3 ? compiledTemplate[3] : undefined;
 
-            riot.tag(tagName, html, css, attr, transformFunction);         
-         }
+         riot.tag(tagName, html, css, attr, transformFunction);         
 
-         //riot.tag(tagName, template, transformFunction);         
-      }
+         return tagName;
+      }      
 
-      // gets tag name from tagName property
-      if (Object.keys(element.prototype).indexOf("tagName") >= 0) {
-         tagName = element.prototype.tagName;
-      }
-      else throw "tagName property not specified"; 
+      let template: string;
 
       // gets string template, directly, via #id or via http request
       if(Object.keys(element.prototype).indexOf("template")>=0) {
-         template=element.prototype.template;
-         // Obsolete: load template from script tag
-         //if (template.charAt(0) == "#") {
-         //   var elementId = template.substr(1);
-         //   template = document.getElementById(elementId).innerHTML;         
-         //} else 
-         if (endsWith(template,".html")) {
+         template = element.prototype.template;
+         if(endsWith(template,".html")) {
             var req = new XMLHttpRequest();
             // TODO do it asynchronously
             req.open("GET", template, false);
             req.send();
             if (req.status == 200) {
                template = req.responseText;
-               registerTag(tagName, template);
+               element.prototype.tagName = registerTag(template);
             }
             return;
          }
-         else registerTag(tagName, template);
+         else 
+         {
+            element.prototype.tagName = registerTag(template);
+         }
       }
       else throw "template property not specified";   
    }
-
 }
 
 declare var riot: Riot.Base;
-
-// @component decorator
-function component(tagname: string, template?: string) {
-	return function(target: Function) {
-      target.prototype["tagName"] = tagname;
-      if (template !== undefined)
-      {
-         target.prototype["template"] = template;
-      }
-	}
-}
 
 // @template decorator
 function template(template: string) {

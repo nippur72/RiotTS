@@ -53,9 +53,7 @@ var Riot;
     }
     ;
     function registerClass(element) {
-        var tagName;
-        var template;
-        function registerTag(tagName, template) {
+        function registerTag(template) {
             var transformFunction = function (opts) {
                 var _this = this;
                 // copies prototype into "this"
@@ -71,36 +69,22 @@ var Riot;
                 if (element.prototype.updated !== undefined)
                     this.on("updated", this.updated);
             };
-            // compile using riot.compile
-            {
-                var templateNoNewLines = template.split('\n').join(' ');
-                var dummyHtml = "<" + tagName + ">" + templateNoNewLines + "</" + tagName + ">";
-                var compiled = riot.compile(dummyHtml, true);
-                var stripped = compiled.substr(12 + tagName.length);
-                var x = stripped.lastIndexOf(", function(opts) {");
-                stripped = stripped.substr(0, x);
-                var compiledTemplate = eval("[" + stripped + "]");
-                var html = compiledTemplate.length > 0 ? compiledTemplate[0] : "";
-                var css = compiledTemplate.length > 1 ? compiledTemplate[1] : "";
-                var attr = compiledTemplate.length > 2 ? compiledTemplate[2] : undefined;
-                riot.tag(tagName, html, css, attr, transformFunction);
-            }
-            //riot.tag(tagName, template, transformFunction);         
+            var compiled = riot.compile(template, true);
+            var stripped = compiled.substr(9);
+            var x = stripped.lastIndexOf(", function(opts) {");
+            stripped = stripped.substr(0, x);
+            var compiledTemplate = eval("[" + stripped + "]");
+            var tagName = compiledTemplate.length > 0 ? compiledTemplate[0] : "";
+            var html = compiledTemplate.length > 1 ? compiledTemplate[1] : "";
+            var css = compiledTemplate.length > 2 ? compiledTemplate[2] : "";
+            var attr = compiledTemplate.length > 3 ? compiledTemplate[3] : undefined;
+            riot.tag(tagName, html, css, attr, transformFunction);
+            return tagName;
         }
-        // gets tag name from tagName property
-        if (Object.keys(element.prototype).indexOf("tagName") >= 0) {
-            tagName = element.prototype.tagName;
-        }
-        else
-            throw "tagName property not specified";
+        var template;
         // gets string template, directly, via #id or via http request
         if (Object.keys(element.prototype).indexOf("template") >= 0) {
             template = element.prototype.template;
-            // Obsolete: load template from script tag
-            //if (template.charAt(0) == "#") {
-            //   var elementId = template.substr(1);
-            //   template = document.getElementById(elementId).innerHTML;         
-            //} else 
             if (endsWith(template, ".html")) {
                 var req = new XMLHttpRequest();
                 // TODO do it asynchronously
@@ -108,27 +92,19 @@ var Riot;
                 req.send();
                 if (req.status == 200) {
                     template = req.responseText;
-                    registerTag(tagName, template);
+                    element.prototype.tagName = registerTag(template);
                 }
                 return;
             }
-            else
-                registerTag(tagName, template);
+            else {
+                element.prototype.tagName = registerTag(template);
+            }
         }
         else
             throw "template property not specified";
     }
     Riot.registerClass = registerClass;
 })(Riot || (Riot = {}));
-// @component decorator
-function component(tagname, template) {
-    return function (target) {
-        target.prototype["tagName"] = tagname;
-        if (template !== undefined) {
-            target.prototype["template"] = template;
-        }
-    };
-}
 // @template decorator
 function template(template) {
     return function (target) {

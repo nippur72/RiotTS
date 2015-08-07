@@ -1,19 +1,17 @@
-﻿@component("test1", '<div id="inner_div">test1 element</div>')
+﻿@template('<test1><div id="inner_div">test1 element</div></test1>')
 class test1 extends Riot.Element
 {
    
 }
 test1.register();
 
-@component("test2")
-@template('<div id="inner_div">test2 element</div>')
+@template('<test2><div id="inner_div">test2 element</div></test2>')
 class test2 extends Riot.Element
 {
    
 }
 test2.register();
 
-@component("test-template-from-script")
 @template("elements/test-template.html")
 class test_template_from_url extends Riot.Element
 {
@@ -22,25 +20,25 @@ class test_template_from_url extends Riot.Element
 test_template_from_url.register();
 
 
-@component("test-no-template")
+
 class testNoTemplate extends Riot.Element
 {
    
 }
 
-@template("<span></span>")
+@template("<test-no-tag><span></span></test-no-tag>")
 class testNoTagName extends Riot.Element
 {
    
 }
 
-@component("test-double-register", '<div></div>')
+@template("<test-double-register><div></div></test-double-register>")
 class testDoubleRegister extends Riot.Element
 {
    
 }
 
-@component("test-lifecycle", "<div>this is test-lifecycle</div>")
+@template("<test-lifecycle><div>this is test-lifecycle</div></test-lifecycle>")
 class test_lifecycle extends Riot.Element
 {
    sequence = "";
@@ -62,7 +60,7 @@ class test_lifecycle extends Riot.Element
    }
 }   
 
-@component("test-options", "<div></div>")
+@template("<test-options><div></div></test-options>")
 class test_options extends Riot.Element
 {
    bar: string;

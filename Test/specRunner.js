@@ -38,7 +38,7 @@ function implements(instance, classFunction) {
     return true;
 }
 function RunSpecs() {
-    describe("@component decorator", function () {
+    describe("Element creation", function () {
         var instance, el;
         beforeAll(function () {
             var root = querySelector('#put_here');
@@ -53,7 +53,7 @@ function RunSpecs() {
             expect(instance.opts["riot-tag"]).toBe("test1");
         });
         it('creates elements with correct template', function () {
-            expect(el.innerHTML).toBe(instance.template);
+            expect(el.innerHTML).toBe('<div id="inner_div">test1 element</div>');
         });
         // expect(implements(el, TestElement)).toBe(true);
     });
@@ -73,21 +73,23 @@ function RunSpecs() {
             expect(instance.inner_div.innerHTML).toBe("test2 element");
         });
         it('creates elements with correct template', function () {
-            expect(el.innerHTML).toBe(instance.template);
+            expect(el.innerHTML).toBe('<div id="inner_div">test2 element</div>');
         });
         it('can load templates from .html files', function () {
             expect(el1.innerHTML).toBe("<div>template from URL</div>");
         });
     });
     describe("register()", function () {
-        it('throws an error if no tag name is specified', function () {
-            expect(function () { return testNoTagName.register(); }).toThrow("tagName property not specified");
+        /*
+        it('throws an error if no tag name is specified', () => {
+           expect(()=>testNoTagName.register()).toThrow("tagName property not specified");
         });
+        */
         it('throws an error if no template is specified', function () {
             expect(function () { return testNoTemplate.register(); }).toThrow("template property not specified");
         });
         /*
-        it('throws an error if no template is specified', () => {
+        it('throws an error if registered twice', () => {
            expect(()=>testDoubleRegister.register()).not.toThrow();
            expect(()=>testDoubleRegister.register()).toThrow();
         });

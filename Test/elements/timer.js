@@ -40,7 +40,6 @@ var Timer = (function (_super) {
         console.log("timer has been updated");
     };
     Timer = __decorate([
-        component("timer"),
         template("elements/timer.html")
     ], Timer);
     return Timer;

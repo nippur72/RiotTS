@@ -17,7 +17,7 @@ var test1 = (function (_super) {
         _super.apply(this, arguments);
     }
     test1 = __decorate([
-        component("test1", '<div id="inner_div">test1 element</div>')
+        template('<test1><div id="inner_div">test1 element</div></test1>')
     ], test1);
     return test1;
 })(Riot.Element);
@@ -28,8 +28,7 @@ var test2 = (function (_super) {
         _super.apply(this, arguments);
     }
     test2 = __decorate([
-        component("test2"),
-        template('<div id="inner_div">test2 element</div>')
+        template('<test2><div id="inner_div">test2 element</div></test2>')
     ], test2);
     return test2;
 })(Riot.Element);
@@ -40,7 +39,6 @@ var test_template_from_url = (function (_super) {
         _super.apply(this, arguments);
     }
     test_template_from_url = __decorate([
-        component("test-template-from-script"),
         template("elements/test-template.html")
     ], test_template_from_url);
     return test_template_from_url;
@@ -51,9 +49,6 @@ var testNoTemplate = (function (_super) {
     function testNoTemplate() {
         _super.apply(this, arguments);
     }
-    testNoTemplate = __decorate([
-        component("test-no-template")
-    ], testNoTemplate);
     return testNoTemplate;
 })(Riot.Element);
 var testNoTagName = (function (_super) {
@@ -62,7 +57,7 @@ var testNoTagName = (function (_super) {
         _super.apply(this, arguments);
     }
     testNoTagName = __decorate([
-        template("<span></span>")
+        template("<test-no-tag><span></span></test-no-tag>")
     ], testNoTagName);
     return testNoTagName;
 })(Riot.Element);
@@ -72,7 +67,7 @@ var testDoubleRegister = (function (_super) {
         _super.apply(this, arguments);
     }
     testDoubleRegister = __decorate([
-        component("test-double-register", '<div></div>')
+        template("<test-double-register><div></div></test-double-register>")
     ], testDoubleRegister);
     return testDoubleRegister;
 })(Riot.Element);
@@ -95,7 +90,7 @@ var test_lifecycle = (function (_super) {
         this.sequence += "2";
     };
     test_lifecycle = __decorate([
-        component("test-lifecycle", "<div>this is test-lifecycle</div>")
+        template("<test-lifecycle><div>this is test-lifecycle</div></test-lifecycle>")
     ], test_lifecycle);
     return test_lifecycle;
 })(Riot.Element);
@@ -108,7 +103,7 @@ var test_options = (function (_super) {
         this.foo = options.foo || "default foo";
     }
     test_options = __decorate([
-        component("test-options", "<div></div>")
+        template("<test-options><div></div></test-options>")
     ], test_options);
     return test_options;
 })(Riot.Element);

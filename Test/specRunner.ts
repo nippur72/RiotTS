@@ -51,7 +51,7 @@ function implements(instance: Object, classFunction: Function)
 
 function RunSpecs()
 {   
-   describe("@component decorator", () => {
+   describe("Element creation", () => {
       var instance,el;
 
       beforeAll(()=>
@@ -71,7 +71,7 @@ function RunSpecs()
       });
 
       it('creates elements with correct template', () => {         
-         expect(el.innerHTML).toBe(instance.template);
+         expect(el.innerHTML).toBe('<div id="inner_div">test1 element</div>');
       });
 
       // expect(implements(el, TestElement)).toBe(true);
@@ -99,7 +99,7 @@ function RunSpecs()
       });
 
       it('creates elements with correct template', () => {         
-         expect(el.innerHTML).toBe(instance.template);
+         expect(el.innerHTML).toBe('<div id="inner_div">test2 element</div>');
       });
 
       it('can load templates from .html files', () => {         
@@ -108,16 +108,18 @@ function RunSpecs()
    });
 
    describe("register()", () => {
+      /*
       it('throws an error if no tag name is specified', () => {                  
          expect(()=>testNoTagName.register()).toThrow("tagName property not specified");
       });
+      */
 
       it('throws an error if no template is specified', () => {                  
          expect(()=>testNoTemplate.register()).toThrow("template property not specified");
       });
 
       /*
-      it('throws an error if no template is specified', () => {    
+      it('throws an error if registered twice', () => {    
          expect(()=>testDoubleRegister.register()).not.toThrow();
          expect(()=>testDoubleRegister.register()).toThrow();
       });
