@@ -106,7 +106,8 @@
          };
          
          var compiled = riot.compile(template,true);
-         var stripped = compiled.substr(9);
+         var r = compiled.indexOf("riot.tag(");
+         var stripped = compiled.substr(r+9);
          var x = stripped.lastIndexOf(", function(opts) {");
          stripped = stripped.substr(0,x);
 

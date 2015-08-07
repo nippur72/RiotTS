@@ -17,7 +17,7 @@ var test1 = (function (_super) {
         _super.apply(this, arguments);
     }
     test1 = __decorate([
-        template('<test1><div id="inner_div">test1 element</div></test1>')
+        template("\n\n<test1>\n   <div id=\"inner_div\">test1 element</div>\n</test1>\n\n")
     ], test1);
     return test1;
 })(Riot.Element);

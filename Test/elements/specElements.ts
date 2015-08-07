@@ -1,4 +1,10 @@
-﻿@template('<test1><div id="inner_div">test1 element</div></test1>')
+﻿@template(`
+
+<test1>
+   <div id="inner_div">test1 element</div>
+</test1>
+
+`)
 class test1 extends Riot.Element
 {
    
