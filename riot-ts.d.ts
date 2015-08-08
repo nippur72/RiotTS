@@ -45,6 +45,8 @@ declare module Riot {
         parent: any;
         root: HTMLElement;
         tags: any;
+        tagName: string;
+        isMounted: boolean;
         update(data?: any): void;
         unmount(keepTheParent?: boolean): void;
         on(eventName: string, fun: Function): void;
