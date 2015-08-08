@@ -107,6 +107,28 @@ var test_options = (function (_super) {
     ], test_options);
     return test_options;
 })(Riot.Element);
+var TestGetterSetter = (function (_super) {
+    __extends(TestGetterSetter, _super);
+    function TestGetterSetter() {
+        _super.apply(this, arguments);
+        this.a = 42;
+    }
+    Object.defineProperty(TestGetterSetter.prototype, "myval", {
+        get: function () {
+            return this.a;
+        },
+        set: function (v) {
+            this.a = v;
+            this.update();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TestGetterSetter = __decorate([
+        template("<test-getter><div id='inner'>getter={myval}</div></test-getter>")
+    ], TestGetterSetter);
+    return TestGetterSetter;
+})(Riot.Element);
 var TestObservable = (function (_super) {
     __extends(TestObservable, _super);
     function TestObservable() {

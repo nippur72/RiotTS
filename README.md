@@ -59,6 +59,7 @@ In brief:
 
 A class-element:
 - can have private properties/fields
+- can have getter/setter properties
 - can use inherited properties and methods
 - can use TypeScript Mixins
 - `options` are passed to the class constructor

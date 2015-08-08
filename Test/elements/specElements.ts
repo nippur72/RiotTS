@@ -82,6 +82,24 @@ class test_options extends Riot.Element
    }      
 }   
 
+@template("<test-getter><div id='inner'>getter={myval}</div></test-getter>")
+class TestGetterSetter extends Riot.Element
+{
+   private a = 42;
+
+   get myval()
+   {
+      return this.a;
+   }
+
+   set myval(v)
+   {
+      this.a = v;  
+      this.update();       
+   }
+}
+
+
 class TestObservable extends Riot.Observable 
 {
    doSomething()

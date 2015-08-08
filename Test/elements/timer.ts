@@ -16,6 +16,11 @@ class Timer extends Riot.Element
          clearInterval(this.timerHandle);
       });
    }
+
+   get aprop()
+   {
+      return this.time+1;
+   }
       
    ticks() {
       this.time++;
@@ -24,22 +29,22 @@ class Timer extends Riot.Element
 
    mounted()
    {
-      console.log("timer has been mounted");    
+      //console.log("timer has been mounted");    
    }
 
    unmounted()
    {
-      console.log("timer has been unmounted");   
+      //console.log("timer has been unmounted");   
    }
 
    updating()
    {
-      console.log("timer is going to be updated");      
+      //console.log("timer is going to be updated");      
    }
 
    updated()
    {
-      console.log("timer has been updated");      
+      //console.log("timer has been updated");      
    }
 }
 

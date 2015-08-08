@@ -23,21 +23,28 @@ var Timer = (function (_super) {
             clearInterval(_this.timerHandle);
         });
     }
+    Object.defineProperty(Timer.prototype, "aprop", {
+        get: function () {
+            return this.time + 1;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Timer.prototype.ticks = function () {
         this.time++;
         this.update();
     };
     Timer.prototype.mounted = function () {
-        console.log("timer has been mounted");
+        //console.log("timer has been mounted");    
     };
     Timer.prototype.unmounted = function () {
-        console.log("timer has been unmounted");
+        //console.log("timer has been unmounted");   
     };
     Timer.prototype.updating = function () {
-        console.log("timer is going to be updated");
+        //console.log("timer is going to be updated");      
     };
     Timer.prototype.updated = function () {
-        console.log("timer has been updated");
+        //console.log("timer has been updated");      
     };
     Timer = __decorate([
         template("elements/timer.html")

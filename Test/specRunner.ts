@@ -126,6 +126,29 @@ function RunSpecs()
       */
    });
 
+   describe("Object cloning", () => {
+      var el, instance: TestGetterSetter;
+
+      beforeAll(()=>
+      {
+         var root = querySelector('#put_here');
+         TestGetterSetter.register();
+         el = TestGetterSetter.createElement();                
+         root.appendChild(el);         
+         instance = getClass(el);         
+      });
+
+      waitFor(()=> instance.isMounted );
+
+      it('works with getter and setter', () => {                           
+         expect(instance.myval).toBe(42);
+         instance.myval = 64;
+         expect(instance.myval).toBe(64);
+         expect(el.innerHTML).toBe('<div id="inner">getter=64</div>');
+         expect(instance["inner"].innerHTML).toBe("getter=64");         
+      });
+   });
+
    // TODO: test object well-formed
    // TODO: test el is observable
 
@@ -212,4 +235,3 @@ function RunSpecs()
       });
    });   
 }
-                     
