@@ -60,6 +60,8 @@
       parent: any;
       root: HTMLElement;
       tags: any;
+      tagName: string;
+      isMounted: boolean;
 
       update(data?: any) { }
       unmount(keepTheParent?: boolean) { }
@@ -79,24 +81,29 @@
          return el;
       }      
    }
-
-   function endsWith(s, searchString, position?) {
-      var subjectString = s.toString();
-      if (position === undefined || position > subjectString.length) {
-         position = subjectString.length;
-      }
-      position -= searchString.length;
-      var lastIndex = subjectString.indexOf(searchString, position);
-      return lastIndex !== -1 && lastIndex === position;
-   };
+   
+   // new extend, works with getters and setters
+   function extend(d, element) {   
+      var map = Object.keys(element.prototype).reduce((descriptors, key) => {
+         descriptors[key] = Object.getOwnPropertyDescriptor(element.prototype, key);
+         return descriptors;
+      },{}) as PropertyDescriptorMap;
+      Object.defineProperties(d, map);
+   }
+         
+   /* old extend, without getters and setters
+   function extend(d, element) {   
+      Object.keys(element.prototype).forEach((key) => d[key] = element.prototype[key]);
+   }
+   */
 
    export function registerClass(element: Function) {    
       
       function registerTag(template: string) {
 
          var transformFunction = function (opts) {
-            // copies prototype into "this"
-            Object.keys(element.prototype).forEach((key) => this[key] = element.prototype[key]);
+            // copies prototype into "this"            
+            extend(this,element);
             // calls class constructor applying it on "this"
             element.apply(this, [opts]);
             if(element.prototype.mounted   !== undefined) this.on("mount"   , this.mounted);
@@ -128,7 +135,7 @@
       // gets string template, directly, via #id or via http request
       if(Object.keys(element.prototype).indexOf("template")>=0) {
          template = element.prototype.template;
-         if(endsWith(template,".html")) {
+         if(template.indexOf("<")<0) {
             var req = new XMLHttpRequest();
             // TODO do it asynchronously
             req.open("GET", template, false);

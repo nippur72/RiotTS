@@ -42,22 +42,24 @@ var Riot;
         return Element;
     })();
     Riot.Element = Element;
-    function endsWith(s, searchString, position) {
-        var subjectString = s.toString();
-        if (position === undefined || position > subjectString.length) {
-            position = subjectString.length;
-        }
-        position -= searchString.length;
-        var lastIndex = subjectString.indexOf(searchString, position);
-        return lastIndex !== -1 && lastIndex === position;
+    // new extend, works with getters and setters
+    function extend(d, element) {
+        var map = Object.keys(element.prototype).reduce(function (descriptors, key) {
+            descriptors[key] = Object.getOwnPropertyDescriptor(element.prototype, key);
+            return descriptors;
+        }, {});
+        Object.defineProperties(d, map);
     }
-    ;
+    /* old extend, without getters and setters
+    function extend(d, element) {
+       Object.keys(element.prototype).forEach((key) => d[key] = element.prototype[key]);
+    }
+    */
     function registerClass(element) {
         function registerTag(template) {
             var transformFunction = function (opts) {
-                var _this = this;
-                // copies prototype into "this"
-                Object.keys(element.prototype).forEach(function (key) { return _this[key] = element.prototype[key]; });
+                // copies prototype into "this"            
+                extend(this, element);
                 // calls class constructor applying it on "this"
                 element.apply(this, [opts]);
                 if (element.prototype.mounted !== undefined)
@@ -86,7 +88,7 @@ var Riot;
         // gets string template, directly, via #id or via http request
         if (Object.keys(element.prototype).indexOf("template") >= 0) {
             template = element.prototype.template;
-            if (endsWith(template, ".html")) {
+            if (template.indexOf("<") < 0) {
                 var req = new XMLHttpRequest();
                 // TODO do it asynchronously
                 req.open("GET", template, false);
