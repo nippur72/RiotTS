@@ -15,6 +15,6 @@
     "!README.md"
   ],  
   "dependencies": {
-    "riot": "~2.2.2"
+    "riot": "~2.2.3"
   }
 }
