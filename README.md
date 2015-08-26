@@ -99,7 +99,6 @@ MyElement.register();
 In `elements/my-element.html`:
 
 ```HTML
-<!-- notice there is no <my-element> tag -->
 <my-element>
    <div>
       This is a my custom element
