@@ -40,6 +40,9 @@ declare module Riot {
         updating?(F: Function): any;
         updated?(F: Function): any;
     }
+    interface HTMLRiotElement extends HTMLElement {
+        _tag: Element;
+    }
     class Element implements Riot.Observable, LifeCycle {
         opts: any;
         parent: Element;
@@ -55,7 +58,7 @@ declare module Riot {
         off(events: string): void;
         trigger(eventName: string, ...args: any[]): void;
         static register(): void;
-        static createElement(options?: any): HTMLElement;
+        static createElement(options?: any): HTMLRiotElement;
     }
     function registerClass(element: Function): void;
 }

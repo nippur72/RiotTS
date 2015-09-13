@@ -55,6 +55,11 @@
       updated?(F: Function);
    }
 
+   export interface HTMLRiotElement extends HTMLElement
+   {
+      _tag: Element;
+   }
+
    export class Element implements Riot.Observable, LifeCycle {
       opts: any;
       parent: Element;
@@ -75,11 +80,11 @@
          registerClass(this);
       } 
 
-      static createElement(options?:any): HTMLElement {
+      static createElement(options?:any): HTMLRiotElement {
          var tagName = (this.prototype as any).tagName;
          var el = document.createElement(tagName);        
          riot.mount(el, tagName, options);   
-         return el;
+         return el as any as HTMLRiotElement;
       }      
    }
    
