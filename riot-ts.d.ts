@@ -55,7 +55,7 @@ declare module Riot {
         off(events: string): void;
         trigger(eventName: string, ...args: any[]): void;
         static register(): void;
-        static createElement(options?: any): HTMLAnchorElement;
+        static createElement(options?: any): HTMLElement;
     }
     function registerClass(element: Function): void;
 }

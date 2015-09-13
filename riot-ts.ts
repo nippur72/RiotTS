@@ -75,7 +75,7 @@
          registerClass(this);
       } 
 
-      static createElement(options?:any) {
+      static createElement(options?:any): HTMLElement {
          var tagName = (this.prototype as any).tagName;
          var el = document.createElement(tagName);        
          riot.mount(el, tagName, options);   
