@@ -30,6 +30,7 @@ var Riot;
                 args[_i - 1] = arguments[_i];
             }
         };
+        Element.prototype.mixin = function (mixinObject, instance) { };
         Element.register = function () {
             registerClass(this);
         };

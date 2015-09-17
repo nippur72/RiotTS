@@ -25,7 +25,8 @@
       parser(parser: Function);
    }
 
-   export interface Base {
+   export interface Base 
+   {
       version: string;
       settings: Riot.Settings;
       mount(customTagSelector: string, opts?: any): Array<Riot.Element>;
@@ -36,6 +37,8 @@
       tag(tagName: string, html: string, constructor?: Function);   
       class(element: Function): void;
       observable(object: any): void;
+
+      mixin(mixinName: string, mixinObject: any): void;
       
       compile(callback: Function): void;
       compile(url: string, callback: Function): void;
@@ -75,6 +78,7 @@
       one(eventName: string,fun: Function) { }
       off(events: string) {}
       trigger(eventName: string,...args) {}       
+      mixin(mixinObject: Object|Function|string, instance?: any) {}            
 
       static register() {
          registerClass(this);

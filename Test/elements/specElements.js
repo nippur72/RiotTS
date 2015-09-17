@@ -139,4 +139,34 @@ var TestObservable = (function (_super) {
     };
     return TestObservable;
 })(Riot.Observable);
+var MixinPlainObject = {
+    method1: function () { return "ok1"; }
+};
+var MixinClass = (function () {
+    function MixinClass() {
+    }
+    MixinClass.prototype.method2 = function () {
+        return "ok2";
+    };
+    return MixinClass;
+})();
+var TestMixins = (function (_super) {
+    __extends(TestMixins, _super);
+    function TestMixins() {
+        _super.call(this);
+        this.mixin(MixinPlainObject);
+        this.mixin(MixinClass.prototype);
+    }
+    TestMixins.prototype.check1 = function () {
+        return this.method1();
+    };
+    TestMixins.prototype.check2 = function () {
+        return this.method2();
+    };
+    TestMixins = __decorate([
+        template("<span></span>")
+    ], TestMixins);
+    return TestMixins;
+})(Riot.Element);
+TestMixins.register();
 //# sourceMappingURL=specElements.js.map

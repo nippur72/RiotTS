@@ -108,3 +108,42 @@ class TestObservable extends Riot.Observable
    }
 }
 
+var MixinPlainObject =
+{
+   method1: function() { return "ok1"; }
+}
+
+class MixinClass 
+{
+   method2()
+   {
+      return "ok2";
+   }
+}
+
+@template("<span></span>")
+class TestMixins extends Riot.Element
+{
+   method1: () => void;
+   method2: () => void;
+
+   constructor()
+   {
+      super();
+      this.mixin(MixinPlainObject);
+      this.mixin(MixinClass.prototype);
+   }
+
+   check1()
+   {
+      return this.method1();
+   }
+
+   check2()
+   {
+      return this.method2();
+   }
+}
+TestMixins.register();
+
+

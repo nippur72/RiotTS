@@ -172,5 +172,18 @@ function RunSpecs() {
             expect(eventRaised).toBe(true);
         });
     });
+    describe("Mixin", function () {
+        var root = querySelector('#put_here');
+        var el = TestMixins.createElement();
+        root.appendChild(el);
+        it("mixes methods from a plain JavaScript object", function () {
+            var tag = el._tag;
+            expect(tag.check1()).toBe("ok1");
+        });
+        it("mixes methods from a TypeScript class .prototype", function () {
+            var tag = el._tag;
+            expect(tag.check2()).toBe("ok2");
+        });
+    });
 }
 //# sourceMappingURL=specRunner.js.map

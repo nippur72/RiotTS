@@ -234,4 +234,24 @@ function RunSpecs()
          expect(eventRaised).toBe(true);      
       });
    });   
+
+   describe("Mixin", () =>
+   {
+      var root = querySelector('#put_here');      
+      var el = TestMixins.createElement();
+      
+      root.appendChild(el);            
+
+      it("mixes methods from a plain JavaScript object",()=>   
+      {
+         var tag: TestMixins = el._tag as any;
+         expect(tag.check1()).toBe("ok1");      
+      });
+
+      it("mixes methods from a TypeScript class .prototype",()=>   
+      {
+         var tag: TestMixins = el._tag as any;
+         expect(tag.check2()).toBe("ok2");      
+      });
+   });   
 }

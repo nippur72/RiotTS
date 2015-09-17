@@ -28,6 +28,7 @@ declare module Riot {
         tag(tagName: string, html: string, constructor?: Function): any;
         class(element: Function): void;
         observable(object: any): void;
+        mixin(mixinName: string, mixinObject: any): void;
         compile(callback: Function): void;
         compile(url: string, callback: Function): void;
         compile(tag: string): string;
@@ -57,6 +58,7 @@ declare module Riot {
         one(eventName: string, fun: Function): void;
         off(events: string): void;
         trigger(eventName: string, ...args: any[]): void;
+        mixin(mixinObject: Object | Function | string, instance?: any): void;
         static register(): void;
         static createElement(options?: any): HTMLRiotElement;
     }

@@ -293,6 +293,8 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.0.15
+  - support for riot builtin mixins
 - v0.0.11
   - support for property getter/setter
 - v0.0.8
