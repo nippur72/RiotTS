@@ -4,25 +4,26 @@
 <head>
    <meta charset="utf-8" />
    <title>TypeScript HTML App</title>
-   <link rel="stylesheet" href="app.css" type="text/css" />   
+   <link rel="stylesheet" href="app.css" type="text/css" />
 
    <!-- riot and riot-ts -->
    <script type="text/javascript" src="bower_components/riot/riot.js"></script>
    <script type="text/javascript" src="bower_components/riot/compiler.js"></script>
    <script type="text/javascript" src="bower_components/riot-ts/riot-ts.js"></script>
-
-   <script type="text/javascript" src="elements/timer.js"></script>   
-   <script type="text/javascript" src="index.js"></script>   
+   <script>
+      riot.settings.brackets = "{{ }}";
+   </script>
+   <script type="text/javascript" src="elements/timer.js"></script>
+   <script type="text/javascript" src="index.js"></script>
 </head>
-<body>      
-   <h1>Riot with TypeScript example</h1>   
+<body>
+   <h1>Riot with TypeScript example</h1>
    <timer time="4">this is inside timer</timer>
 </body>
 </html>
 
-<script>   
-window.onload = function(e)
-{   
-   main(); 
-}    
+<script>
+   window.onload = function (e) {
+      main();
+   }
 </script>

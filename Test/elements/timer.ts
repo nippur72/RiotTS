@@ -48,5 +48,4 @@ class Timer extends Riot.Element
    }
 }
 
-Timer.register();
                      

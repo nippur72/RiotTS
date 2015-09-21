@@ -51,5 +51,4 @@ var Timer = (function (_super) {
     ], Timer);
     return Timer;
 })(Riot.Element);
-Timer.register();
 //# sourceMappingURL=timer.js.map

@@ -21,7 +21,6 @@ var test1 = (function (_super) {
     ], test1);
     return test1;
 })(Riot.Element);
-test1.register();
 var test2 = (function (_super) {
     __extends(test2, _super);
     function test2() {
@@ -32,7 +31,6 @@ var test2 = (function (_super) {
     ], test2);
     return test2;
 })(Riot.Element);
-test2.register();
 var test_template_from_url = (function (_super) {
     __extends(test_template_from_url, _super);
     function test_template_from_url() {
@@ -43,7 +41,6 @@ var test_template_from_url = (function (_super) {
     ], test_template_from_url);
     return test_template_from_url;
 })(Riot.Element);
-test_template_from_url.register();
 var testNoTemplate = (function (_super) {
     __extends(testNoTemplate, _super);
     function testNoTemplate() {
@@ -168,5 +165,4 @@ var TestMixins = (function (_super) {
     ], TestMixins);
     return TestMixins;
 })(Riot.Element);
-TestMixins.register();
 //# sourceMappingURL=specElements.js.map

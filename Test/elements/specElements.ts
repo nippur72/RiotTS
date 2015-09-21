@@ -9,22 +9,20 @@ class test1 extends Riot.Element
 {
    
 }
-test1.register();
+
 
 @template('<test2><div id="inner_div">test2 element</div></test2>')
 class test2 extends Riot.Element
 {
    
 }
-test2.register();
+
 
 @template("elements/test-template.html")
 class test_template_from_url extends Riot.Element
 {
    
 }
-test_template_from_url.register();
-
 
 
 class testNoTemplate extends Riot.Element
@@ -144,6 +142,4 @@ class TestMixins extends Riot.Element
       return this.method2();
    }
 }
-TestMixins.register();
-
 

@@ -107,6 +107,14 @@
    }
    */
 
+   export function registerAll()
+   {
+      waitingToBeRegistered.map((el: any)=>el.register());
+      waitingToBeRegistered = [];
+   }
+
+   export var waitingToBeRegistered: Array<Function> = [];
+
    export function registerClass(element: Function) {    
       
       function registerTag(template: string) {
@@ -171,6 +179,7 @@ declare var riot: Riot.Base;
 function template(template: string) {
 	return function(target: Function) {
       target.prototype["template"] = template;
+      Riot.waitingToBeRegistered.push(target);
    }	
 }
                      
