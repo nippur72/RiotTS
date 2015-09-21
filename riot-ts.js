@@ -56,6 +56,12 @@ var Riot;
        Object.keys(element.prototype).forEach((key) => d[key] = element.prototype[key]);
     }
     */
+    function registerAll() {
+        Riot.waitingToBeRegistered.map(function (el) { return el.register(); });
+        Riot.waitingToBeRegistered = [];
+    }
+    Riot.registerAll = registerAll;
+    Riot.waitingToBeRegistered = [];
     function registerClass(element) {
         function registerTag(template) {
             var transformFunction = function (opts) {
@@ -113,6 +119,7 @@ var Riot;
 function template(template) {
     return function (target) {
         target.prototype["template"] = template;
+        Riot.waitingToBeRegistered.push(target);
     };
 }
 //# sourceMappingURL=riot-ts.js.map

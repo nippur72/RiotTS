@@ -9,6 +9,7 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [How to write elements](#howtowrite)
 - [How to correctly reference in markup](#howtoreference)
 - [The @template decorator](#template)
+- [Element registration](#register)
 - [Lifecycle events shortcuts](#lifecycle)
 - [How to create elements programmatically](#creating)
 - [Observables](#observables)
@@ -135,6 +136,15 @@ class MyHello extends Riot.Element
 {
 }
 ```
+
+# Element registration <a name="register"></a>
+
+Once the class Element has been defined, it needs to be registered in `riot`
+by calling `ElemenClass.register()`.
+
+Alternatively, elements can be registered all at once by calling
+`Riot.registerAll()`, e.g. before mounting them on the page. 
+
 
 # Lifecycle events shortcuts <a name="lifecycle"></a>
 
@@ -293,6 +303,8 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.0.16
+  - added `Riot.registerAll()` 
 - v0.0.15
   - support for riot builtin mixins
 - v0.0.11

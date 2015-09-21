@@ -62,6 +62,8 @@ declare module Riot {
         static register(): void;
         static createElement(options?: any): HTMLRiotElement;
     }
+    function registerAll(): void;
+    var waitingToBeRegistered: Array<Function>;
     function registerClass(element: Function): void;
 }
 declare var riot: Riot.Base;

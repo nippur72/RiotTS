@@ -6,9 +6,9 @@
       }
    </style>
    <div>
-      timer: <span class="bolded">{ time }</span><br>
+      timer: <span class="bolded">{{ time }}</span><br>
       trasclusion is '<yield />'<br>
-      <div each="{el in mylist}">iterating over array item "{el}"<br></div>
+      <div each="{{el in mylist}}">iterating over array item "{{el}}"<br></div>
       <div>this is from timer.html file!</div>
    </div>
 </timer>

@@ -3,6 +3,7 @@
 // jasmine boot.js links to window.onload 
 var startJasmine = window.onload;
 window.onload = function (e) {
+    Riot.registerAll();
     riot.mount('*');
     RunSpecs();
     startJasmine(null);
@@ -80,26 +81,14 @@ function RunSpecs() {
         });
     });
     describe("register()", function () {
-        /*
-        it('throws an error if no tag name is specified', () => {
-           expect(()=>testNoTagName.register()).toThrow("tagName property not specified");
-        });
-        */
         it('throws an error if no template is specified', function () {
             expect(function () { return testNoTemplate.register(); }).toThrow("template property not specified");
         });
-        /*
-        it('throws an error if registered twice', () => {
-           expect(()=>testDoubleRegister.register()).not.toThrow();
-           expect(()=>testDoubleRegister.register()).toThrow();
-        });
-        */
     });
     describe("Object cloning", function () {
         var el, instance;
         beforeAll(function () {
             var root = querySelector('#put_here');
-            TestGetterSetter.register();
             el = TestGetterSetter.createElement();
             root.appendChild(el);
             instance = getClass(el);
@@ -119,7 +108,6 @@ function RunSpecs() {
         var el, instance;
         beforeAll(function () {
             var root = querySelector('#put_here');
-            test_lifecycle.register();
             el = test_lifecycle.createElement();
             root.appendChild(el);
             instance = getClass(el);
@@ -134,7 +122,6 @@ function RunSpecs() {
         var el1, el2, el3, i1, i2, i3;
         beforeAll(function () {
             var root = querySelector('#put_here');
-            test_options.register();
             el1 = test_options.createElement();
             el2 = test_options.createElement({ bar: "BAR" });
             el3 = test_options.createElement({ bar: "BAR", foo: "FOO" });
