@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {              
+        "removeComments": true,
+        "out": "specRunner.js",
+        "target": "ES5",
+        "experimentalDecorators": true,
+        "sourceMap": true
+    },
+    "files": [
+        "bower_components/riot-ts/riot-ts.d.ts",
+        "elements/specElements.ts",
+        "specRunner.ts"
+    ]
+}
