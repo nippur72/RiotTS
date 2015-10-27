@@ -62,6 +62,7 @@ var Riot;
     }
     Riot.registerAll = registerAll;
     Riot.waitingToBeRegistered = [];
+    Riot.templateCache = {};
     function registerClass(element) {
         function registerTag(template) {
             var transformFunction = function (opts) {
@@ -91,24 +92,25 @@ var Riot;
             riot.tag(tagName, html, css, attr, transformFunction);
             return tagName;
         }
+        function loadTemplateFromHTTP(template) {
+            var req = new XMLHttpRequest();
+            req.open("GET", template, false);
+            req.send();
+            if (req.status == 200)
+                return req.responseText;
+            else
+                throw req.responseText;
+        }
+        ;
         var template;
-        // gets string template, directly, via #id or via http request
-        if (Object.keys(element.prototype).indexOf("template") >= 0) {
+        // gets string template: inlined, via http request or via cache
+        if (element.prototype.template !== undefined) {
             template = element.prototype.template;
             if (template.indexOf("<") < 0) {
-                var req = new XMLHttpRequest();
-                // TODO do it asynchronously
-                req.open("GET", template, false);
-                req.send();
-                if (req.status == 200) {
-                    template = req.responseText;
-                    element.prototype.tagName = registerTag(template);
-                }
-                return;
+                // it's a file, loads from cache or http
+                template = (Riot.templateCache[template] !== undefined) ? Riot.templateCache[template] : loadTemplateFromHTTP(template);
             }
-            else {
-                element.prototype.tagName = registerTag(template);
-            }
+            element.prototype.tagName = registerTag(template);
         }
         else
             throw "template property not specified";
