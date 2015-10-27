@@ -5,7 +5,6 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 # Table of contents
 
 - [Installation](#install)
-- [Supported features](#features)
 - [How to write elements](#howtowrite)
 - [How to correctly reference in markup](#howtoreference)
 - [The @template decorator](#template)
@@ -15,7 +14,8 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [Observables](#observables)
 - [Router](#router)
 - [Examples](#examples)
-   - [A timer-based counter element](#timer_example)   
+   - [A timer-based counter element](#timer_example) 
+- [Concatenating templates](#concat)  
 - [Running the tests](#repoexample)
 - [Known issues](#knownissues)
 - [Contributing](#contributing)
@@ -36,17 +36,10 @@ You'll get the following files in `bower_components\riot-ts`:
 - `riot-ts.d.ts` the file to reference in your TypeScript code (`/// <reference path="...">`)
 - `riot-ts.ts` the source TypeScript file for debugging purposes
 
-# Supported features <a name="features"></a>                           
-
-- write elements as ES6 classes
-- `@template()` sets template from string or URL
-- `className.register()` registers the element in Riot
-- class constructor receives `options` as parameter
-
 # How to write elements <a name="howtowrite"></a>
 
 Differently from pure [Riot.js](https://muut.com/riotjs/), in RiotTS elements are written 
-as TypeScript classes extending the type `Riot.Element`. 
+as TypeScript classes extending the base type `Riot.Element`. 
 
 There are no external `.tag` files, HTML templates are defined as pure strings or are loaded from `.html` files.
 
@@ -55,8 +48,8 @@ In brief:
 - Write elements as TypeScript classes
 - Extend the `Riot.Element` class 
 - Use `@template` to define the template string or load it from URL
-- register the element in riot via `className.register()`.
-- manually create istances with `className.createElement()`.
+- register each element in riot via `className.register()` or register them all at once with `Riot.registerAll()`
+- create instances of the element programmatically with `className.createElement()`.
 
 A class-element:
 - can have private properties/fields
@@ -126,7 +119,7 @@ riot.mount('*');
 Sets the template for the element. The template parameter can be either:
 
 - a literal string e.g. `"<my-hello><div>hello</div></my-hello>"`
-- an external file ending in `.html` to be loaded syncronously
+- an external file (usually a `.html`) to be loaded via HTTP.
 
 Example of an element `<my-hello>`:
  
@@ -137,14 +130,36 @@ class MyHello extends Riot.Element
 }
 ```
 
+or
+
+```TypeScript
+@template("elements/my-hello.html")
+class MyHello extends Riot.Element
+{
+}
+```
+```
+<my-hello>
+   <div>hello</div>
+</my-hello>
+```
+External tag files are loaded via HTTP requests, which can slow down the startup of very large applications. To avoid this, templates can be concatenated in a single javascript file to be loaded more quickly. See how to setup [a grunt task that does it](#concat).   
+
 # Element registration <a name="register"></a>
 
 Once the class Element has been defined, it needs to be registered in `riot`
 by calling `ElemenClass.register()`.
 
 Alternatively, elements can be registered all at once by calling
-`Riot.registerAll()`, e.g. before mounting them on the page. 
+`Riot.registerAll()`, for example:
 
+```TypeScript
+window.onload = function() 
+{   
+   Riot.registerAll();
+   riot.mount('*');
+}
+``` 
 
 # Lifecycle events shortcuts <a name="lifecycle"></a>
 
@@ -283,6 +298,54 @@ Timer.register();
 riot.mount('*');   // mounts all elements
 ```
 
+# Caching templates <a name="concat"></a>
+
+To speed up the loading of external HTML templates (for example when the app goes in production), tag templates can be preloaded in the `Riot.templateCache` dictionary. 
+
+RiotTS first looks in the cache, and if the tag is not found, it loads it with an HTTP request. 
+
+To create a cache file containing all templates, use `grunt` and its plugin `htmlConvert`:
+
+- First install `grunt-cli`, `grunt` and `grunt-html-convert`:
+```
+$ npm install -g grunt-cli
+$ npm install grunt --save-dev
+$ npm install grunt-html-convert --save-dev
+```
+- And use the following `Gruntfiles.js`
+
+```JavaScript
+module.exports = function(grunt) {
+  grunt.initConfig({
+    htmlConvert: {
+      options: {
+        base: '',
+        prefix: 'Riot.templateCache = (function(){\n\n',
+        suffix: '   return mytemplate;\n})();\n'     
+      },
+      mytemplate: {
+        src: ['elements/**/*.html'],
+        dest: 'elements/template-cache.js'
+      },
+    },  
+  });
+  grunt.loadNpmTasks('grunt-html-convert');
+};
+
+```  
+- Then run `grunt htmlCovert` from the command line.
+
+A file named `elements/template-cache.js` will be built with all templates from the `elements\` directory. That file can be inlined with a `<script>` tag just before loading the element's code, e.g.:
+```HTML
+   <script type="text/javascript" src="elements/template-cache.js"></script>
+   <script type="text/javascript" src="elements/mytag.js"></script>
+```
+The cache can be easily turned off without affecting the code:
+```HTML
+   <!-- <script type="text/javascript" src="elements/template-cache.js"></script> -->
+   <script type="text/javascript" src="elements/mytag.js"></script>
+```
+
 # Running the tests <a name="repoexample"></a>
 
 To run the "Test" project containing the Jasmine specs:
@@ -303,6 +366,8 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.0.17
+  - support for template-cache
 - v0.0.16
   - added `Riot.registerAll()` 
 - v0.0.15
