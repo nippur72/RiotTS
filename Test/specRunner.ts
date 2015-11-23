@@ -67,10 +67,6 @@ function RunSpecs()
          expect(instance.inner_div.innerHTML).toBe("test1 element");         
       });
 
-      it('creates elements with correct riot-tag', () => {         
-         expect(instance.opts["riot-tag"]).toBe("test1");
-      });
-
       it('creates elements with correct template', () => {         
          expect(el.innerHTML).toBe('<div id="inner_div">test1 element</div>');
       });

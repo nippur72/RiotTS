@@ -50,9 +50,6 @@ function RunSpecs() {
         it('creates correct element bodies', function () {
             expect(instance.inner_div.innerHTML).toBe("test1 element");
         });
-        it('creates elements with correct riot-tag', function () {
-            expect(instance.opts["riot-tag"]).toBe("test1");
-        });
         it('creates elements with correct template', function () {
             expect(el.innerHTML).toBe('<div id="inner_div">test1 element</div>');
         });

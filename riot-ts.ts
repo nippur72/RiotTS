@@ -25,6 +25,15 @@
       parser(parser: Function);
    }
 
+   export interface CompilerResult
+   {
+      tagName: string; 
+      html: string; 
+      css: string; 
+      attribs: string;
+      js: string;
+   }      
+   
    export interface Base 
    {
       version: string;
@@ -32,9 +41,9 @@
       mount(customTagSelector: string, opts?: any): Array<Riot.Element>;
       mount(selector: string, tagName: string, opts?: any): Array<Riot.Element>;
       mount(domNode: Node, tagName: string, opts?: any): Array<Riot.Element>;
-      render(tagName: string, opts?: any): string;
-      tag(tagName: string, html: string, css?: string, attrs?: string,constructor?: Function);
-      tag(tagName: string, html: string, constructor?: Function);   
+      render(tagName: string, opts?: any): string;            
+      tag(tagName: string, html: string, css: string, attrs: string, constructor: Function);
+      tag2(tagName: string, html: string, css: string, attrs: string, constructor: Function, bpair: string);
       class(element: Function): void;
       observable(object: any): void;
 
@@ -44,6 +53,8 @@
       compile(url: string, callback: Function): void;
       compile(tag: string): string;
       compile(tag: string, dontExecute: boolean): string;
+      compile(tag: string, options: any): string;
+      compile(tag: string, dontExecute: boolean, options: any): CompilerResult[];
 
       // TODO server-only methods
    
@@ -121,33 +132,23 @@
       
       function registerTag(template: string) {
 
-         var transformFunction = function (opts) {
-            // copies prototype into "this"            
-            extend(this,element);
-            // calls class constructor applying it on "this"
-            element.apply(this, [opts]);
+         var transformFunction = function (opts) {            
+            extend(this,element);         // copies prototype into "this"                        
+            element.apply(this, [opts]);  // calls class constructor applying it on "this"
+
             if(element.prototype.mounted   !== undefined) this.on("mount"   , this.mounted);
             if(element.prototype.unmounted !== undefined) this.on("unmount" , this.unmounted);
             if(element.prototype.updating  !== undefined) this.on("update"  , this.updating);
             if(element.prototype.updated   !== undefined) this.on("updated" , this.updated);
+
+            // TODO support for init(opts) ?
          };
          
-         var compiled = riot.compile(template,true);
-         var r = compiled.indexOf("riot.tag(");
-         var stripped = compiled.substr(r+9);
-         var x = stripped.lastIndexOf(", function(opts) {");
-         stripped = stripped.substr(0,x);
+         var compiledTag = riot.compile(template, true, {entities: true})[0];
 
-         var compiledTemplate = eval("["+stripped+"]");
+         riot.tag2(compiledTag.tagName, compiledTag.html, compiledTag.css, compiledTag.attribs, transformFunction, riot.settings.brackets);         
 
-         var tagName = compiledTemplate.length>0 ? compiledTemplate[0] : "";
-         var html    = compiledTemplate.length>1 ? compiledTemplate[1] : "";
-         var css     = compiledTemplate.length>2 ? compiledTemplate[2] : "";
-         var attr    = compiledTemplate.length>3 ? compiledTemplate[3] : undefined;
-
-         riot.tag(tagName, html, css, attr, transformFunction);         
-
-         return tagName;
+         return compiledTag.tagName;
       }      
 
       function loadTemplateFromHTTP(template) {

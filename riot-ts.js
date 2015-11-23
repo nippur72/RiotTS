@@ -66,10 +66,8 @@ var Riot;
     function registerClass(element) {
         function registerTag(template) {
             var transformFunction = function (opts) {
-                // copies prototype into "this"            
-                extend(this, element);
-                // calls class constructor applying it on "this"
-                element.apply(this, [opts]);
+                extend(this, element); // copies prototype into "this"                        
+                element.apply(this, [opts]); // calls class constructor applying it on "this"
                 if (element.prototype.mounted !== undefined)
                     this.on("mount", this.mounted);
                 if (element.prototype.unmounted !== undefined)
@@ -78,19 +76,11 @@ var Riot;
                     this.on("update", this.updating);
                 if (element.prototype.updated !== undefined)
                     this.on("updated", this.updated);
+                // TODO support for init(opts) ?
             };
-            var compiled = riot.compile(template, true);
-            var r = compiled.indexOf("riot.tag(");
-            var stripped = compiled.substr(r + 9);
-            var x = stripped.lastIndexOf(", function(opts) {");
-            stripped = stripped.substr(0, x);
-            var compiledTemplate = eval("[" + stripped + "]");
-            var tagName = compiledTemplate.length > 0 ? compiledTemplate[0] : "";
-            var html = compiledTemplate.length > 1 ? compiledTemplate[1] : "";
-            var css = compiledTemplate.length > 2 ? compiledTemplate[2] : "";
-            var attr = compiledTemplate.length > 3 ? compiledTemplate[3] : undefined;
-            riot.tag(tagName, html, css, attr, transformFunction);
-            return tagName;
+            var compiledTag = riot.compile(template, true, { entities: true })[0];
+            riot.tag2(compiledTag.tagName, compiledTag.html, compiledTag.css, compiledTag.attribs, transformFunction, riot.settings.brackets);
+            return compiledTag.tagName;
         }
         function loadTemplateFromHTTP(template) {
             var req = new XMLHttpRequest();

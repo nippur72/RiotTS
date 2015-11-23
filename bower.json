@@ -7,14 +7,14 @@
   ],
   "description": "Riot for TypeScript",
   "main": "riot-ts.js",
-  "license": "MIT", 
+  "license": "MIT",
   "ignore": [
     "/*",
     "!riot-ts.*",
     "!LICENSE.txt",
     "!README.md"
-  ],  
+  ],
   "dependencies": {
-    "riot": "~2.2.3"
+    "riot": "~2.3.11"
   }
 }
