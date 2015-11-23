@@ -333,7 +333,7 @@ module.exports = function(grunt) {
 };
 
 ```  
-- Then run `grunt htmlCovert` from the command line.
+- Then run `grunt htmlConvert` from the command line.
 
 A file named `elements/template-cache.js` will be built with all templates from the `elements\` directory. That file can be inlined with a `<script>` tag just before loading the element's code, e.g.:
 ```HTML
@@ -366,6 +366,9 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.0.18
+  - aligned with Riot's v2.3.11 API
+  - for old Riot v2.2, use RiotTS v0.0.17
 - v0.0.17
   - support for template-cache
 - v0.0.16

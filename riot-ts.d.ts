@@ -17,6 +17,13 @@ declare module Riot {
         exec(callback: Function): any;
         parser(parser: Function): any;
     }
+    interface CompilerResult {
+        tagName: string;
+        html: string;
+        css: string;
+        attribs: string;
+        js: string;
+    }
     interface Base {
         version: string;
         settings: Riot.Settings;
@@ -24,8 +31,8 @@ declare module Riot {
         mount(selector: string, tagName: string, opts?: any): Array<Riot.Element>;
         mount(domNode: Node, tagName: string, opts?: any): Array<Riot.Element>;
         render(tagName: string, opts?: any): string;
-        tag(tagName: string, html: string, css?: string, attrs?: string, constructor?: Function): any;
-        tag(tagName: string, html: string, constructor?: Function): any;
+        tag(tagName: string, html: string, css: string, attrs: string, constructor: Function): any;
+        tag2(tagName: string, html: string, css: string, attrs: string, constructor: Function, bpair: string): any;
         class(element: Function): void;
         observable(object: any): void;
         mixin(mixinName: string, mixinObject: any): void;
@@ -33,6 +40,8 @@ declare module Riot {
         compile(url: string, callback: Function): void;
         compile(tag: string): string;
         compile(tag: string, dontExecute: boolean): string;
+        compile(tag: string, options: any): string;
+        compile(tag: string, dontExecute: boolean, options: any): CompilerResult[];
         route: Riot.Router;
     }
     interface LifeCycle {
