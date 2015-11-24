@@ -73,7 +73,9 @@ declare module Riot {
     }
     function registerAll(): void;
     var waitingToBeRegistered: Array<Function>;
-    var templateCache: {};
+    var precompiledTags: {
+        [fileName: string]: CompilerResult;
+    };
     function registerClass(element: Function): void;
 }
 declare var riot: Riot.Base;

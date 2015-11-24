@@ -62,9 +62,9 @@ var Riot;
     }
     Riot.registerAll = registerAll;
     Riot.waitingToBeRegistered = [];
-    Riot.templateCache = {};
+    Riot.precompiledTags = {};
     function registerClass(element) {
-        function registerTag(template) {
+        function registerTag(compiledTag) {
             var transformFunction = function (opts) {
                 extend(this, element); // copies prototype into "this"                        
                 element.apply(this, [opts]); // calls class constructor applying it on "this"
@@ -78,7 +78,6 @@ var Riot;
                     this.on("updated", this.updated);
                 // TODO support for init(opts) ?
             };
-            var compiledTag = riot.compile(template, true, { entities: true })[0];
             riot.tag2(compiledTag.tagName, compiledTag.html, compiledTag.css, compiledTag.attribs, transformFunction, riot.settings.brackets);
             return compiledTag.tagName;
         }
@@ -92,15 +91,27 @@ var Riot;
                 throw req.responseText;
         }
         ;
-        var template;
-        // gets string template: inlined, via http request or via cache
+        var compiled;
+        // gets string template: inlined, via http request or via precompiled cache
         if (element.prototype.template !== undefined) {
-            template = element.prototype.template;
-            if (template.indexOf("<") < 0) {
-                // it's a file, loads from cache or http
-                template = (Riot.templateCache[template] !== undefined) ? Riot.templateCache[template] : loadTemplateFromHTTP(template);
+            var tagTemplate = element.prototype.template;
+            if (tagTemplate.indexOf("<") < 0) {
+                // tag is a file
+                if (Riot.precompiledTags[tagTemplate] !== undefined) {
+                    // loads it from precompiled cache                
+                    compiled = Riot.precompiledTags[tagTemplate];
+                }
+                else {
+                    // loads from HTTP and compile on the fly
+                    tagTemplate = loadTemplateFromHTTP(tagTemplate);
+                    compiled = riot.compile(tagTemplate, true, { entities: true })[0];
+                }
             }
-            element.prototype.tagName = registerTag(template);
+            else {
+                // tag is inlined, compile on the fly
+                compiled = riot.compile(tagTemplate, true, { entities: true })[0];
+            }
+            element.prototype.tagName = registerTag(compiled);
         }
         else
             throw "template property not specified";

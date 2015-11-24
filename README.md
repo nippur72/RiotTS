@@ -15,7 +15,7 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [Router](#router)
 - [Examples](#examples)
    - [A timer-based counter element](#timer_example) 
-- [Concatenating templates](#concat)  
+- [Precompiled tags](#precompiled)  
 - [Running the tests](#repoexample)
 - [Known issues](#knownissues)
 - [Contributing](#contributing)
@@ -143,7 +143,7 @@ class MyHello extends Riot.Element
    <div>hello</div>
 </my-hello>
 ```
-External tag files are loaded via HTTP requests, which can slow down the startup of very large applications. To avoid this, templates can be concatenated in a single javascript file to be loaded more quickly. See how to setup [a grunt task that does it](#concat).   
+External tag files are loaded via HTTP requests, which can slow down the startup of very large applications. To avoid this, tags can be precompiled and concatenated into a single javascript file to be loaded more quickly. See how to setup [a grunt task that does this](#precompiled).   
 
 # Element registration <a name="register"></a>
 
@@ -298,53 +298,69 @@ Timer.register();
 riot.mount('*');   // mounts all elements
 ```
 
-# Caching templates <a name="concat"></a>
+# Precompiled tags <a name="precompiled"></a>
 
-To speed up the loading of external HTML templates (for example when the app goes in production), tag templates can be preloaded in the `Riot.templateCache` dictionary. 
+To speed up application startup times, tags can be precompiled 
+in order to avoid compiling them at runtime.
 
-RiotTS first looks in the cache, and if the tag is not found, it loads it with an HTTP request. 
+Precompiled tags can be also concatenated into a single JavaScript file, 
+avoiding to raise an HTTP request for each tag.
 
-To create a cache file containing all templates, use `grunt` and its plugin `htmlConvert`:
+RiotTS can be switched to use precompiled files very easily by 
+just including them (via `<script src="..."></script>`).
 
-- First install `grunt-cli`, `grunt` and `grunt-html-convert`:
+If the precompiled file is included, RiotTS will just use it, otherwise
+it will load tags via HTTP and compile them at runtime.
+
+Precompiled files are suggested for production, during development
+it's better to turn them off in order to avoid continually refreshing
+the precompiled file.
+
+Precompiled files are generated with the grunt task `grunt-riotts-precompile`.
+
+How to setup the task:
+
+- First install `grunt-cli`, `grunt` and `grunt-riotts-precompile`:
 ```
 $ npm install -g grunt-cli
 $ npm install grunt --save-dev
-$ npm install grunt-html-convert --save-dev
+$ npm install grunt-riotts-precompile --save-dev
 ```
-- And use the following `Gruntfiles.js`
+- Use a `Gruntfiles.js` like this:
 
 ```JavaScript
 module.exports = function(grunt) {
-  grunt.initConfig({
-    htmlConvert: {
-      options: {
-        base: '',
-        prefix: 'Riot.templateCache = (function(){\n\n',
-        suffix: '   return mytemplate;\n})();\n'     
-      },
-      mytemplate: {
+  grunt.initConfig({    
+    // reads all tags in "elements/" and writes to "precompiled-tags.js"
+    precompileTags: {
         src: ['elements/**/*.html'],
-        dest: 'elements/template-cache.js'
-      },
-    },  
+        dest: 'precompiled-tags.js'
+    }  
   });
-  grunt.loadNpmTasks('grunt-html-convert');
+  
+  grunt.registerTask('default', ['precompileTags']);  
+  grunt.registerTask('off', ['precompileTags:off']);
+  
+  grunt.loadNpmTasks('grunt-riotts-precompile');
 };
+```
+How to run the task according to the above `Gruntfiles.js`:
 
-```  
-- Then run `grunt htmlConvert` from the command line.
-
-A file named `elements/template-cache.js` will be built with all templates from the `elements\` directory. That file can be inlined with a `<script>` tag just before loading the element's code, e.g.:
+- from the command line, use `grunt` to create the precompiled file (`precompiled-tags.js`)
+- use `grunt off` to turn off precompilation (will empty `precompiled-tags.js`)
+  
+The generate `precompiled-tags.js` file can be inlined with a `<script>` tag 
+just before loading the element's code, e.g.:
 ```HTML
-   <script type="text/javascript" src="elements/template-cache.js"></script>
+   <script type="text/javascript" src="precompiled-tags.js"></script>
    <script type="text/javascript" src="elements/mytag.js"></script>
 ```
-The cache can be easily turned off without affecting the code:
+Precompiled tags can be easily turned off by just commenting the inclusion:
 ```HTML
-   <!-- <script type="text/javascript" src="elements/template-cache.js"></script> -->
+   <!-- <script type="text/javascript" src="precompiled-tags.js"></script> -->
    <script type="text/javascript" src="elements/mytag.js"></script>
 ```
+or by just emptying the file `precompiled-tags.js`.
 
 # Running the tests <a name="repoexample"></a>
 
@@ -366,6 +382,9 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.0.19
+  - support for precompiled tags
+  - deprecated support for "template-cache" in favor of precompiled tags
 - v0.0.18
   - aligned with Riot's v2.3.11 API
   - for old Riot v2.2, use RiotTS v0.0.17
