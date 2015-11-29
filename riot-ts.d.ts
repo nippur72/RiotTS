@@ -10,12 +10,16 @@ declare module Riot {
         constructor();
     }
     interface Router {
-        (callback: Function): any;
-        (to: string): any;
-        start(): any;
+        (callback: Function): void;
+        (filter: string, callback: Function): void;
+        (to: string, title?: string): any;
+        create(): Router;
+        start(autoExec?: boolean): any;
         stop(): any;
         exec(callback: Function): any;
-        parser(parser: Function): any;
+        query(): any;
+        base(base: string): any;
+        parser(parser: (path: string) => string, secondParser?: Function): any;
     }
     interface CompilerResult {
         tagName: string;

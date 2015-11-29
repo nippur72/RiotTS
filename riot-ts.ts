@@ -13,16 +13,21 @@
       constructor() {
          riot.observable(this);
       }
-   }
+   }  
 
    export interface Router {
-      (callback: Function);
-      (to: string);                       
+      (callback: Function): void;
+      (filter: string, callback: Function): void;
+      (to: string, title?: string);                       
 
-      start();
+      create(): Router;
+      start(autoExec?: boolean);
       stop();
       exec(callback: Function);
-      parser(parser: Function);
+      query(): any;
+
+      base(base: string);
+      parser(parser: (path: string)=>string, secondParser?: Function );
    }
 
    export interface CompilerResult
