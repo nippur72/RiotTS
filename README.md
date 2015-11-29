@@ -382,6 +382,8 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.0.21
+  - aligned router API to riot v2.3.11
 - v0.0.19
   - support for precompiled tags
   - deprecated support for "template-cache" in favor of precompiled tags

@@ -16,7 +16,7 @@ declare module Riot {
         create(): Router;
         start(autoExec?: boolean): any;
         stop(): any;
-        exec(callback: Function): any;
+        exec(): any;
         query(): any;
         base(base: string): any;
         parser(parser: (path: string) => string, secondParser?: Function): any;

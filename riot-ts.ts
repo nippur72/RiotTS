@@ -23,7 +23,7 @@
       create(): Router;
       start(autoExec?: boolean);
       stop();
-      exec(callback: Function);
+      exec();
       query(): any;
 
       base(base: string);
