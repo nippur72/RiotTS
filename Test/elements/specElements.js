@@ -39,13 +39,6 @@ var test_template_from_url = (function (_super) {
     ], test_template_from_url);
     return test_template_from_url;
 })(Riot.Element);
-var testNoTemplate = (function (_super) {
-    __extends(testNoTemplate, _super);
-    function testNoTemplate() {
-        _super.apply(this, arguments);
-    }
-    return testNoTemplate;
-})(Riot.Element);
 var testNoTagName = (function (_super) {
     __extends(testNoTagName, _super);
     function testNoTagName() {
