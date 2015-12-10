@@ -25,11 +25,6 @@ class test_template_from_url extends Riot.Element
 }
 
 
-class testNoTemplate extends Riot.Element
-{
-   
-}
-
 @template("<test-no-tag><span></span></test-no-tag>")
 class testNoTagName extends Riot.Element
 {

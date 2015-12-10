@@ -3,7 +3,6 @@
 // jasmine boot.js links to window.onload 
 var startJasmine = window.onload;
 window.onload = function (e) {
-    Riot.registerAll();
     riot.mount('*');
     RunSpecs();
     startJasmine(null);
@@ -75,11 +74,6 @@ function RunSpecs() {
         });
         it('can load templates from .html files', function () {
             expect(el1.innerHTML).toBe("<div>template from URL</div>");
-        });
-    });
-    describe("register()", function () {
-        it('throws an error if no template is specified', function () {
-            expect(function () { return testNoTemplate.register(); }).toThrow("template property not specified");
         });
     });
     describe("Object cloning", function () {

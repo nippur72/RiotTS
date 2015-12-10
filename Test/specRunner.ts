@@ -5,7 +5,6 @@
 var startJasmine = window.onload;
 window.onload = (e) =>
 {              
-   Riot.registerAll();
    riot.mount('*');
    RunSpecs();   
    startJasmine(null);
@@ -102,15 +101,7 @@ function RunSpecs()
       it('can load templates from .html files', () => {         
          expect(el1.innerHTML).toBe("<div>template from URL</div>");
       });      
-   });
-
-   describe("register()", () => {
-
-      it('throws an error if no template is specified', () => {                  
-         expect(()=>testNoTemplate.register()).toThrow("template property not specified");
-      });
-
-   });
+   });   
 
    describe("Object cloning", () => {
       var el, instance: TestGetterSetter;

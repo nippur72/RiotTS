@@ -96,10 +96,6 @@
       trigger(eventName: string,...args) {}       
       mixin(mixinObject: Object|Function|string, instance?: any) {}            
 
-      static register() {
-         registerClass(this);
-      } 
-
       static createElement(options?:any): HTMLRiotElement {
          var tagName = (this.prototype as any).tagName;
          var el = document.createElement(tagName);        
@@ -122,14 +118,6 @@
       Object.keys(element.prototype).forEach((key) => d[key] = element.prototype[key]);
    }
    */
-
-   export function registerAll()
-   {
-      waitingToBeRegistered.map((el: any)=>el.register());
-      waitingToBeRegistered = [];
-   }
-
-   export var waitingToBeRegistered: Array<Function> = [];
 
    export var precompiledTags: { [fileName: string]: CompilerResult } = {};
 
@@ -198,8 +186,8 @@ declare var riot: Riot.Base;
 // @template decorator
 function template(template: string) {
 	return function(target: Function) {
-      target.prototype["template"] = template;
-      Riot.waitingToBeRegistered.push(target);
+      target.prototype["template"] = template;      
+      Riot.registerClass(target);
    }	
 }
                      

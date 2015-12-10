@@ -72,11 +72,8 @@ declare module Riot {
         off(events: string): void;
         trigger(eventName: string, ...args: any[]): void;
         mixin(mixinObject: Object | Function | string, instance?: any): void;
-        static register(): void;
         static createElement(options?: any): HTMLRiotElement;
     }
-    function registerAll(): void;
-    var waitingToBeRegistered: Array<Function>;
     var precompiledTags: {
         [fileName: string]: CompilerResult;
     };

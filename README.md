@@ -8,7 +8,6 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [How to write elements](#howtowrite)
 - [How to correctly reference in markup](#howtoreference)
 - [The @template decorator](#template)
-- [Element registration](#register)
 - [Lifecycle events shortcuts](#lifecycle)
 - [How to create elements programmatically](#creating)
 - [Observables](#observables)
@@ -48,7 +47,6 @@ In brief:
 - Write elements as TypeScript classes
 - Extend the `Riot.Element` class 
 - Use `@template` to define the template string or load it from URL
-- register each element in riot via `className.register()` or register them all at once with `Riot.registerAll()`
 - create instances of the element programmatically with `className.createElement()`.
 
 A class-element:
@@ -85,9 +83,6 @@ class MyElement extends Riot.Element
 {
    // ...
 }
-
-// after the element is defined, we register it in Riot
-MyElement.register();
 ```
 
 In `elements/my-element.html`:
@@ -145,21 +140,6 @@ class MyHello extends Riot.Element
 ```
 External tag files are loaded via HTTP requests, which can slow down the startup of very large applications. To avoid this, tags can be precompiled and concatenated into a single javascript file to be loaded more quickly. See how to setup [a grunt task that does this](#precompiled).   
 
-# Element registration <a name="register"></a>
-
-Once the class Element has been defined, it needs to be registered in `riot`
-by calling `ElemenClass.register()`.
-
-Alternatively, elements can be registered all at once by calling
-`Riot.registerAll()`, for example:
-
-```TypeScript
-window.onload = function() 
-{   
-   Riot.registerAll();
-   riot.mount('*');
-}
-``` 
 
 # Lifecycle events shortcuts <a name="lifecycle"></a>
 
@@ -293,8 +273,6 @@ class Timer extends Riot.Element {
 Then install the element and mount on the page with:
 
 ```TypeScript
-Timer.register();
-
 riot.mount('*');   // mounts all elements
 ```
 
@@ -382,6 +360,8 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.0.22
+  - removed the need for registration, `.register` and `.registerAll` are now removed from the API
 - v0.0.21
   - aligned router API to riot v2.3.11
 - v0.0.19

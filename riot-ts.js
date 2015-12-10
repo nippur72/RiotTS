@@ -31,9 +31,6 @@ var Riot;
             }
         };
         Element.prototype.mixin = function (mixinObject, instance) { };
-        Element.register = function () {
-            registerClass(this);
-        };
         Element.createElement = function (options) {
             var tagName = this.prototype.tagName;
             var el = document.createElement(tagName);
@@ -56,12 +53,6 @@ var Riot;
        Object.keys(element.prototype).forEach((key) => d[key] = element.prototype[key]);
     }
     */
-    function registerAll() {
-        Riot.waitingToBeRegistered.map(function (el) { return el.register(); });
-        Riot.waitingToBeRegistered = [];
-    }
-    Riot.registerAll = registerAll;
-    Riot.waitingToBeRegistered = [];
     Riot.precompiledTags = {};
     function registerClass(element) {
         function registerTag(compiledTag) {
@@ -122,7 +113,7 @@ var Riot;
 function template(template) {
     return function (target) {
         target.prototype["template"] = template;
-        Riot.waitingToBeRegistered.push(target);
+        Riot.registerClass(target);
     };
 }
 //# sourceMappingURL=riot-ts.js.map
