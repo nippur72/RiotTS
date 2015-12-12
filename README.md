@@ -115,6 +115,7 @@ Sets the template for the element. The template parameter can be either:
 
 - a literal string e.g. `"<my-hello><div>hello</div></my-hello>"`
 - an external file (usually a `.html`) to be loaded via HTTP.
+- a tage name (works on with precompiled tags).
 
 Example of an element `<my-hello>`:
  
@@ -138,8 +139,16 @@ class MyHello extends Riot.Element
    <div>hello</div>
 </my-hello>
 ```
-External tag files are loaded via HTTP requests, which can slow down the startup of very large applications. To avoid this, tags can be precompiled and concatenated into a single javascript file to be loaded more quickly. See how to setup [a grunt task that does this](#precompiled).   
+External tag files are loaded via HTTP requests, which can slow down the startup of very large applications. 
+To avoid this, tags can be precompiled and concatenated into a single javascript file to be loaded more quickly. 
+See how to setup [a grunt task that does this](#precompiled).
 
+Precompiled files can also be set to index tags by their tag names rather than their path, making it possible to 
+use a shorter syntax:
+```TypeScript
+@template("my-hello")
+// instead of @template("elements/my-hello.html")
+```  
 
 # Lifecycle events shortcuts <a name="lifecycle"></a>
 
@@ -290,9 +299,8 @@ just including them (via `<script src="..."></script>`).
 If the precompiled file is included, RiotTS will just use it, otherwise
 it will load tags via HTTP and compile them at runtime.
 
-Precompiled files are suggested for production, during development
-it's better to turn them off in order to avoid continually refreshing
-the precompiled file.
+Precompiled files are normally intended for production, during the 
+development they are usually turned off for a faster REPL cycle. 
 
 Precompiled files are generated with the grunt task `grunt-riotts-precompile`.
 
@@ -307,19 +315,19 @@ $ npm install grunt-riotts-precompile --save-dev
 - Use a `Gruntfiles.js` like this:
 
 ```JavaScript
-module.exports = function(grunt) {
-  grunt.initConfig({    
-    // reads all tags in "elements/" and writes to "precompiled-tags.js"
-    precompileTags: {
-        src: ['elements/**/*.html'],
-        dest: 'precompiled-tags.js'
-    }  
-  });
-  
-  grunt.registerTask('default', ['precompileTags']);  
-  grunt.registerTask('off', ['precompileTags:off']);
-  
-  grunt.loadNpmTasks('grunt-riotts-precompile');
+module.exports = function(grunt) {      
+   grunt.initConfig({
+      precompileTags: {
+         src: ['tags/**/*.html'],
+         dest: 'precompiled-tags.js',
+         indexByTagName: false
+      }
+   });
+   
+   grunt.loadNpmTasks('grunt-riotts-precompile');
+   
+   grunt.registerTask('default', ['precompileTags']);  
+   grunt.registerTask('off', ['precompileTags:off']);
 };
 ```
 How to run the task according to the above `Gruntfiles.js`:
@@ -339,6 +347,19 @@ Precompiled tags can be easily turned off by just commenting the inclusion:
    <script type="text/javascript" src="elements/mytag.js"></script>
 ```
 or by just emptying the file `precompiled-tags.js`.
+
+## The `indexByTagName` option:
+
+If `indexByTagName` is set to `true` compiled tags will be indexed by tagname rather than file path. So it will 
+be possible to define them in RiotTS with just
+```TypeScript
+@template("mytag")
+```
+instead of:
+```TypeScript
+@template("mytagdirectory/mytag.html")
+```
+Note: Tags defined by tag name rather than path cannot work if precompiled tags are turned off. 
 
 # Running the tests <a name="repoexample"></a>
 
