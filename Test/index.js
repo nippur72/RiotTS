@@ -1,5 +1,5 @@
-/// <reference path="bower_components/riot-ts/riot-ts.d.ts" />
 function main() {
+    Riot.styleParser = themeManager.parseCss;
     riot.mount('*');
 }
 //# sourceMappingURL=index.js.map

@@ -1,8 +1,14 @@
-﻿/// <reference path="bower_components/riot-ts/riot-ts.d.ts" />
-
-function main() 
+﻿
+function startIndex() 
 {      
-   riot.mount('*');
+   window.onload = () =>
+   {   
+      riot.util.errorHandler = function(err) {
+         console.log(`${err} in ${err.riotData.tagName}`);
+      }
+
+      riot.mount('*');
+   }
 }
 
 

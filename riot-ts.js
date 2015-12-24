@@ -53,6 +53,11 @@ var Riot;
        Object.keys(element.prototype).forEach((key) => d[key] = element.prototype[key]);
     }
     */
+    var allStyles = '';
+    function updateStyles() {
+        riot.styleNode.innerHTML = Riot.styleParser ? Riot.styleParser(allStyles) : allStyles;
+    }
+    Riot.updateStyles = updateStyles;
     Riot.precompiledTags = {};
     function registerClass(element) {
         function registerTag(compiledTag) {
@@ -60,16 +65,22 @@ var Riot;
                 extend(this, element); // copies prototype into "this"                        
                 element.apply(this, [opts]); // calls class constructor applying it on "this"
                 if (element.prototype.mounted !== undefined)
-                    this.on("mount", this.mounted);
+                    this.on("mount", this.mounted.bind(this));
                 if (element.prototype.unmounted !== undefined)
-                    this.on("unmount", this.unmounted);
+                    this.on("unmount", this.unmounted.bind(this));
                 if (element.prototype.updating !== undefined)
-                    this.on("update", this.updating);
+                    this.on("update", this.updating.bind(this));
                 if (element.prototype.updated !== undefined)
-                    this.on("updated", this.updated);
-                // TODO support for init(opts) ?
+                    this.on("updated", this.updated.bind(this));
+                // support for init(opts) ?
+                if (element.prototype.init !== undefined)
+                    this.init(opts);
             };
-            riot.tag2(compiledTag.tagName, compiledTag.html, compiledTag.css, compiledTag.attribs, transformFunction, riot.settings.brackets);
+            // store css for dynamic parsing
+            var rawCss = compiledTag.css;
+            allStyles += rawCss;
+            var parsedCss = Riot.styleParser ? Riot.styleParser(rawCss) : rawCss;
+            riot.tag2(compiledTag.tagName, compiledTag.html, parsedCss, compiledTag.attribs, transformFunction, riot.settings.brackets);
             return compiledTag.tagName;
         }
         function loadTemplateFromHTTP(template) {

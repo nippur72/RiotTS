@@ -43,7 +43,7 @@ class test_lifecycle extends Riot.Element
    sequence = "";
 
    mounted() {
-      this.sequence += "3";         
+      this.sequence += "2";         
    }   
 
    unmounted() {
@@ -55,7 +55,7 @@ class test_lifecycle extends Riot.Element
    }
 
    updated() {
-      this.sequence += "2";         
+      this.sequence += "3";         
    }
 }   
 

@@ -7,23 +7,24 @@
    <link rel="stylesheet" href="app.css" type="text/css" />
 
    <!-- riot and riot-ts -->
-   <script type="text/javascript" src="bower_components/riot/riot+compiler.js"></script>
+   <!--script type="text/javascript" src="bower_components/riot/riot+compiler.js"></!--script -->
+   <script type="text/javascript" src="riot/riot-fork.js"></script>
    <script type="text/javascript" src="bower_components/riot-ts/riot-ts.js"></script>
    <script>
       riot.settings.brackets = "{{ }}";
    </script>
-   <script type="text/javascript" src="precompiled-tags.js"></script>
-   <script type="text/javascript" src="elements/timer.js"></script>
-   <script type="text/javascript" src="index.js"></script>
+   <!-- script type="text/javascript" src="precompiled-tags.js"></script -->
+   <script type="text/javascript" src="app.js"></script>
 </head>
 <body>
    <h1>Riot with TypeScript example</h1>
    <timer time="-3">this is inside timer</timer>
+
+   <dynamic-css-tag></dynamic-css-tag>
+
 </body>
 </html>
 
 <script>
-   window.onload = function (e) {
-      main();
-   }
+   startIndex()
 </script>

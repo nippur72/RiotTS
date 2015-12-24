@@ -37,12 +37,24 @@
       css: string; 
       attribs: string;
       js: string;
-   }      
+   }  
+   
+   export interface tmplError extends String
+   {
+      riotData: 
+      { 
+         tagName: string,
+         _riot_id: number
+      }   
+   }    
    
    export interface Base 
    {
       version: string;
       settings: Riot.Settings;
+      styleNode: HTMLStyleElement;
+      util: { errorHandler: (err: tmplError) => void };
+
       mount(customTagSelector: string, opts?: any): Array<Riot.Element>;
       mount(selector: string, tagName: string, opts?: any): Array<Riot.Element>;
       mount(domNode: Node, tagName: string, opts?: any): Array<Riot.Element>;
@@ -119,6 +131,14 @@
    }
    */
 
+   var allStyles = '';
+   
+   export var styleParser: (css: string)=> string;
+
+   export function updateStyles() {
+      riot.styleNode.innerHTML = styleParser ? styleParser(allStyles) : allStyles;
+   }
+
    export var precompiledTags: { [fileName: string]: CompilerResult } = {};
 
    export function registerClass(element: Function) {    
@@ -129,15 +149,21 @@
             extend(this,element);         // copies prototype into "this"                        
             element.apply(this, [opts]);  // calls class constructor applying it on "this"
 
-            if(element.prototype.mounted   !== undefined) this.on("mount"   , this.mounted);
-            if(element.prototype.unmounted !== undefined) this.on("unmount" , this.unmounted);
-            if(element.prototype.updating  !== undefined) this.on("update"  , this.updating);
-            if(element.prototype.updated   !== undefined) this.on("updated" , this.updated);
+            if(element.prototype.mounted   !== undefined) this.on("mount"   , this.mounted.bind(this));
+            if(element.prototype.unmounted !== undefined) this.on("unmount" , this.unmounted.bind(this));
+            if(element.prototype.updating  !== undefined) this.on("update"  , this.updating.bind(this));
+            if(element.prototype.updated   !== undefined) this.on("updated" , this.updated.bind(this));
 
-            // TODO support for init(opts) ?
+            // support for init(opts) ?
+            if(element.prototype.init !== undefined) this.init(opts);
          };
+
+         // store css for dynamic parsing
+         var rawCss = compiledTag.css;
+         allStyles+= rawCss;
+         var parsedCss = styleParser ? styleParser(rawCss) : rawCss;
                   
-         riot.tag2(compiledTag.tagName, compiledTag.html, compiledTag.css, compiledTag.attribs, transformFunction, riot.settings.brackets);         
+         riot.tag2(compiledTag.tagName, compiledTag.html, parsedCss, compiledTag.attribs, transformFunction, riot.settings.brackets);         
 
          return compiledTag.tagName;
       }      

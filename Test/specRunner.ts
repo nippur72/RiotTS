@@ -2,13 +2,19 @@
 /// <reference path="typings/jasmine/jasmine.d.ts" />
 
 // jasmine boot.js links to window.onload 
-var startJasmine = window.onload;
-window.onload = (e) =>
-{              
-   riot.mount('*');
-   RunSpecs();   
-   startJasmine(null);
-};
+function startTests()
+{
+   var startJasmine = window.onload;
+   window.onload = (e) =>
+   {              
+      riot.util.errorHandler = function(err) {
+         console.log(`${err} in ${err.riotData.tagName}`);
+      }
+      riot.mount('*');
+      RunSpecs();   
+      startJasmine(null);
+   };
+}
 
 // simulates the old Jasmine 1.3 waitsFor()
 function waitFor(F)
@@ -136,15 +142,17 @@ function RunSpecs()
          var root = querySelector('#put_here');         
          el = test_lifecycle.createElement();                
          root.appendChild(el);         
-         instance = getClass(el);
-         instance.unmount();
+         instance = getClass(el);         
       });
 
-      waitFor(()=>instance.sequence!="");
+      waitFor(()=>instance.sequence!="");      
 
       it('are executed, all in the correct order', () => {                  
+         expect(instance.sequence).toBe("123");
+         instance.unmount();         
          expect(instance.sequence).toBe("1234");
       });
+      
    });
 
    describe("createElement()", () => {
@@ -228,4 +236,20 @@ function RunSpecs()
          expect(tag.check2()).toBe("ok2");      
       });
    });   
+
+   describe("dynamic css parser", ()=>
+   {
+      it("parses styles correctly at startup", ()=>
+      {
+         var styles = riot.styleNode.innerHTML.replace(/\r/g,'').replace(/\n/g,'');
+         expect(styles).toMatch(/\bmytheme { color: green; background-color: red; }/);
+      })
+
+      it("updates styles by manual update", ()=>
+      {
+         themeManager.flipTheme();
+         var styles = riot.styleNode.innerHTML.replace(/\r/g,'').replace(/\n/g,'');
+         expect(styles).toMatch(/\bmytheme { color: blue; background-color: yellow; }/);
+      })
+   })
 }

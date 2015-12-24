@@ -28,9 +28,19 @@ declare module Riot {
         attribs: string;
         js: string;
     }
+    interface tmplError extends String {
+        riotData: {
+            tagName: string;
+            _riot_id: number;
+        };
+    }
     interface Base {
         version: string;
         settings: Riot.Settings;
+        styleNode: HTMLStyleElement;
+        util: {
+            errorHandler: (err: tmplError) => void;
+        };
         mount(customTagSelector: string, opts?: any): Array<Riot.Element>;
         mount(selector: string, tagName: string, opts?: any): Array<Riot.Element>;
         mount(domNode: Node, tagName: string, opts?: any): Array<Riot.Element>;
@@ -74,6 +84,8 @@ declare module Riot {
         mixin(mixinObject: Object | Function | string, instance?: any): void;
         static createElement(options?: any): HTMLRiotElement;
     }
+    var styleParser: (css: string) => string;
+    function updateStyles(): void;
     var precompiledTags: {
         [fileName: string]: CompilerResult;
     };

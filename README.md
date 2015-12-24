@@ -8,6 +8,7 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [How to write elements](#howtowrite)
 - [How to correctly reference in markup](#howtoreference)
 - [The @template decorator](#template)
+- [Tag initialization](#init)
 - [Lifecycle events shortcuts](#lifecycle)
 - [How to create elements programmatically](#creating)
 - [Observables](#observables)
@@ -15,7 +16,7 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [Examples](#examples)
    - [A timer-based counter element](#timer_example) 
 - [Precompiled tags](#precompiled)  
-- [Running the tests](#repoexample)
+- [Dynamic CSS](#dynamiccss)
 - [Known issues](#knownissues)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
@@ -54,7 +55,6 @@ A class-element:
 - can have getter/setter properties
 - can use inherited properties and methods
 - can use TypeScript Mixins
-- `options` are passed to the class constructor
 
 # How to correctly reference in markup <a name="howtoreference"></a>
 
@@ -140,6 +140,23 @@ class MyHello extends Riot.Element
 ```
 External tag files are loaded via HTTP requests, which can slow down the startup of very large applications. To avoid this, tags can be precompiled and concatenated into a single javascript file to be loaded more quickly. See how to setup [a grunt task that does this](#precompiled).   
 
+# Tag initialization <a name="init"></a>
+
+When a tag instance is created, `constructor(opts)` is called allowing to perform all the required 
+initializations before the tag is mounted on the DOM. The parameter `opts` contains the tag 
+attributes specified in the markup or passed programmatically via `riot.mount(tagname, opts)`.
+
+The implementation of `constructor()` requires a call to `super()` as per ES6 specification. If you
+want to make it short, write your constructor as `init(opts)` which is a short-hand for the constructor 
+that does not requires a call to `super()`. Example:
+```TypeScript
+@template("<myel></myel>")
+class MyEl extends Riot.Element {
+   init(ops) {
+      // initializations here
+   }
+}
+```
 
 # Lifecycle events shortcuts <a name="lifecycle"></a>
 
@@ -340,14 +357,38 @@ Precompiled tags can be easily turned off by just commenting the inclusion:
 ```
 or by just emptying the file `precompiled-tags.js`.
 
-# Running the tests <a name="repoexample"></a>
+# Dynamic CSS <a name="dynamiccss"></a>
 
-To run the "Test" project containing the Jasmine specs:
+With RiotTS it's possible to process CSS styles dynamically at runtime, by the use
+of a style parsing function. CSS parsing allows a greater control over application 
+styling (e.g. easy theme switching).
 
-- clone this repo `nippur72/RiotTS`
-- go to the `Test` directory
-- run `bower update`
-- Open the solution in Visual Studio and run the "Test" project.
+To enable runtime CSS parsing, just define a parsing function in `Riot.styleParser`.
+
+The function definition must be done before the definition of any tag to avoid unparsed
+styles being injected in the DOM.
+
+Once the style parsing function has been defined, styles can be parsed and updated 
+simply calling `Riot.updateStyles()`.
+
+Example:
+```HTML
+<style>
+.mytheme { 
+   color: var(mycolor)
+}
+<style>
+```
+```typescript
+mycolor = "red";
+Riot.styleParser = function(css) { return css.replace(/var(mycolor)/g, mycolor) }
+
+// ... later in the app ...
+mycolor = "yellow";
+Riot.updateStyles();
+```
+
+See `Test/themeManager.ts` for a complete example of a theme switching class that uses CSS runtime parsing.
 
 # Known issues <a name="knownissues"></a>
 
@@ -360,6 +401,12 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.1.0
+  - switched to [Semver](http://semver.org) version numbers
+  - alternate syntax `init(opts)` in place of `constructor(opts)`
+  - added type for `riot.util.errorHandler`
+  - added runtime parsing of CSS (`Riot.styleParser`, `Riot.updateStyles()`)
+  - aligned to Riot v2.4.0
 - v0.0.22
   - removed the need for registration, `.register` and `.registerAll` are now removed from the API
 - v0.0.21
