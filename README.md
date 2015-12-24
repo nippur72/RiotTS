@@ -48,7 +48,6 @@ In brief:
 - Write elements as TypeScript classes
 - Extend the `Riot.Element` class 
 - Use `@template` to define the template string or load it from URL
-- create instances of the element programmatically with `className.createElement()`.
 
 A class-element:
 - can have private properties/fields
