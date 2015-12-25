@@ -272,7 +272,7 @@ var Timer = (function (_super) {
 })(Riot.Element);
 function startIndex() {
     window.onload = function () {
-        riot.util.errorHandler = function (err) {
+        riot.util.tmpl.errorHandler = function (err) {
             console.log(err + " in " + err.riotData.tagName);
         };
         riot.mount('*');
@@ -284,7 +284,7 @@ function startIndex() {
 function startTests() {
     var startJasmine = window.onload;
     window.onload = function (e) {
-        riot.util.errorHandler = function (err) {
+        riot.util.tmpl.errorHandler = function (err) {
             console.log(err + " in " + err.riotData.tagName);
         };
         riot.mount('*');

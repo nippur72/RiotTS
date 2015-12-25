@@ -39,7 +39,10 @@ declare module Riot {
         settings: Riot.Settings;
         styleNode: HTMLStyleElement;
         util: {
-            errorHandler: (err: tmplError) => void;
+            tmpl: {
+                (impl: string, data: any): string;
+                errorHandler: (err: tmplError) => void;
+            };
         };
         mount(customTagSelector: string, opts?: any): Array<Riot.Element>;
         mount(selector: string, tagName: string, opts?: any): Array<Riot.Element>;

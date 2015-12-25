@@ -7,7 +7,7 @@ function startTests()
    var startJasmine = window.onload;
    window.onload = (e) =>
    {              
-      riot.util.errorHandler = function(err) {
+      riot.util.tmpl.errorHandler = function(err) {
          console.log(`${err} in ${err.riotData.tagName}`);
       }
       riot.mount('*');
