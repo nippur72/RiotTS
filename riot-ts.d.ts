@@ -28,7 +28,8 @@ declare module Riot {
         attribs: string;
         js: string;
     }
-    interface tmplError extends String {
+    interface tmplError {
+        message: string;
         riotData: {
             tagName: string;
             _riot_id: number;

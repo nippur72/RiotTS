@@ -39,8 +39,9 @@
       js: string;
    }  
    
-   export interface tmplError extends String
+   export interface tmplError 
    {
+      message: string,
       riotData: 
       { 
          tagName: string,
