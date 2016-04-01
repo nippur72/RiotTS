@@ -115,7 +115,7 @@ Sets the template for the element. The template parameter can be either:
 
 - a literal string e.g. `"<my-hello><div>hello</div></my-hello>"`
 - an external file (usually a `.html`) to be loaded via HTTP.
-- a tage name (works on with precompiled tags).
+- a tag name (works on with precompiled tags).
 
 Example of an element `<my-hello>`:
  
