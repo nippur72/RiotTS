@@ -13,7 +13,7 @@ export class Observable {
       riot.observable(this);
    }
 }  
-
+  
 export interface LifeCycle
 {
    mounted?(F: Function);
@@ -135,7 +135,5 @@ export function template(template: string) {
       registerClass(target);
    }	
 }
-
-export var base = riot; 
 
                    

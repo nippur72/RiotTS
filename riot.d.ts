@@ -11,13 +11,6 @@ declare module "riot" {
         base(base: string): any;
         parser(parser: (path: string) => string, secondParser?: Function): any;
     }
-    interface CompilerResult {
-        tagName: string;
-        html: string;
-        css: string;
-        attribs: string;
-        js: string;
-    }
     interface Settings {
         brackets: string;
     }
@@ -34,12 +27,6 @@ declare module "riot" {
         class(element: Function): void;
         observable(object: any): void;
         mixin(mixinName: string, mixinObject: any): void;
-        compile(callback: Function): void;
-        compile(url: string, callback: Function): void;
-        compile(tag: string): string;
-        compile(tag: string, dontExecute: boolean): string;
-        compile(tag: string, options: any): string;
-        compile(tag: string, dontExecute: boolean, options: any): CompilerResult[];
         route: Router;
     }
     var riot: Base;

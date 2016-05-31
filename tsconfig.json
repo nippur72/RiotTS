@@ -3,7 +3,8 @@
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": false,
-        "sourceMap": false
+        "sourceMap": true,
+        "declaration": true
     },
     "files": [
         "riot-compiler.ts",

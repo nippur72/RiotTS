@@ -31,6 +31,7 @@
     <Content Include="web.config" />
     <Content Include="README.md" />
     <Content Include="tsconfig.json" />
+    <Content Include="package.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

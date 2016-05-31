@@ -117,4 +117,4 @@ function template(template) {
     };
 }
 exports.template = template;
-exports.base = riot;
+//# sourceMappingURL=RiotTS.js.map
