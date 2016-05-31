@@ -1,5 +1,5 @@
 "use strict";
-var riot = require("riot");
+var riot = require("riot/riot+compiler");
 var Observable = (function () {
     function Observable() {
         riot.observable(this);
@@ -116,3 +116,4 @@ function template(template) {
     };
 }
 exports.template = template;
+exports.base = riot;
