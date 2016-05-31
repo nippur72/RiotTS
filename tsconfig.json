@@ -7,8 +7,9 @@
         "declaration": true
     },
     "files": [
+        "index.ts",
         "riot-compiler.ts",
-        "RiotTS.ts",
+        "riot-ts.ts",
         "riot.ts",
         "types.ts"
     ]

@@ -22,10 +22,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="index.ts" />
     <TypeScriptCompile Include="riot-compiler.ts" />
     <TypeScriptCompile Include="types.ts" />
     <TypeScriptCompile Include="riot.ts" />
-    <TypeScriptCompile Include="RiotTS.ts" />
+    <TypeScriptCompile Include="riot-ts.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
