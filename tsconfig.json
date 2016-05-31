@@ -7,7 +7,7 @@
     },
     "files": [
         "riot-compiler.ts",
-        "riot-ts.ts",
+        "RiotTS.ts",
         "riot.ts",
         "types.ts"
     ]

@@ -25,7 +25,7 @@
     <TypeScriptCompile Include="riot-compiler.ts" />
     <TypeScriptCompile Include="types.ts" />
     <TypeScriptCompile Include="riot.ts" />
-    <TypeScriptCompile Include="riot-ts.ts" />
+    <TypeScriptCompile Include="RiotTS.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
