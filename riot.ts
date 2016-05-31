@@ -1,4 +1,4 @@
-﻿declare module "riot"
+﻿declare module "riot/riot+compiler"
 {
    interface Router {
       (callback: Function): void;

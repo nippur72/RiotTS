@@ -1,4 +1,4 @@
-﻿import * as riot from "riot";
+﻿import * as riot from "riot/riot+compiler";
 
 import { CompilerResult } from "./types";
 
@@ -134,4 +134,7 @@ export function template(template: string) {
       registerClass(target);
    }	
 }
-                     
+
+export var base = riot; 
+
+                   
