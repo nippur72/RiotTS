@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/nippur72/RiotTS#readme",
   "dependencies": {
-    "riot": "^2.4.1"
+    "riot": "^2.4.1",
+    "riot-compiler": "^2.4.1"
   }
 }
