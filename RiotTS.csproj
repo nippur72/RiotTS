@@ -24,7 +24,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="types.ts" />
     <TypeScriptCompile Include="riot.ts" />
-    <TypeScriptCompile Include="riot-ts.ts" />
+    <TypeScriptCompile Include="index.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
