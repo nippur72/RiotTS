@@ -1,5 +1,6 @@
 "use strict";
-var riot = require("riot/riot+compiler");
+var riot = require("riot");
+var compile = require("riot-compiler");
 var Observable = (function () {
     function Observable() {
         riot.observable(this);
@@ -95,12 +96,12 @@ function registerClass(element) {
             else {
                 // loads from HTTP and compile on the fly
                 tagTemplate = loadTemplateFromHTTP(tagTemplate);
-                compiled = riot.compile(tagTemplate, true, { entities: true })[0];
+                compiled = compile(tagTemplate, true, { entities: true })[0];
             }
         }
         else {
             // tag is inlined, compile on the fly
-            compiled = riot.compile(tagTemplate, true, { entities: true })[0];
+            compiled = compile(tagTemplate, true, { entities: true })[0];
         }
         element.prototype.tagName = registerTag(compiled);
     }

@@ -1,4 +1,4 @@
-﻿declare module "riot/riot+compiler"
+﻿declare module "riot"
 {
    interface Router {
       (callback: Function): void;
@@ -13,15 +13,6 @@
 
       base(base: string);
       parser(parser: (path: string)=>string, secondParser?: Function );
-   }   
-
-   interface CompilerResult
-   {
-      tagName: string; 
-      html: string; 
-      css: string; 
-      attribs: string;
-      js: string;
    }      
 
    interface Settings {
@@ -45,13 +36,6 @@
 
       mixin(mixinName: string, mixinObject: any): void;
       
-      compile(callback: Function): void;
-      compile(url: string, callback: Function): void;
-      compile(tag: string): string;
-      compile(tag: string, dontExecute: boolean): string;
-      compile(tag: string, options: any): string;
-      compile(tag: string, dontExecute: boolean, options: any): CompilerResult[];
-
       // TODO server-only methods
    
       route: Router;
