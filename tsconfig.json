@@ -5,7 +5,10 @@
         "noImplicitAny": false,
         "sourceMap": false
     },
-    "exclude": [
-        "node_modules"
+    "files": [
+        "riot-compiler.ts",
+        "riot-ts.ts",
+        "riot.ts",
+        "types.ts"
     ]
 }
