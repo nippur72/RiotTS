@@ -1,16 +1,16 @@
 /*
 export as namespace Riot;
 
-else
-{
-  var require = function(module) {
-     return window["riot"];
-  }
-  exports = {};
-  var v = factory(require, exports);
-  window["Riot"] = exports;
-  window["template"] = Riot.template;
-}
+   else
+   {
+      var require = function(module) {
+         return window["riot"];
+      }
+      exports = {};
+      var v = factory(require, exports);
+      window["Riot"] = exports;
+      window["template"] = Riot.template;
+   }
 */
 (function (dependencies, factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {

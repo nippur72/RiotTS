@@ -1,9 +1,9 @@
 {
   "name": "riot-typescript",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Riot for TypeScript",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/riot-ts.js",
+  "typings": "./dist/riot-ts.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
