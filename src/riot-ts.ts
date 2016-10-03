@@ -1,7 +1,19 @@
-﻿import * as riot from "riot";
-import * as compile from "riot-compiler";
+﻿/*
+export as namespace Riot;
 
-import { CompilerResult } from "./types";
+   else
+   {
+      var require = function(module) {
+         return window["riot"];
+      }
+      exports = {};
+      var v = factory(require, exports);
+      window["Riot"] = exports;
+      window["template"] = Riot.template;
+   }
+*/
+
+import riot = require("riot/riot+compiler");
 
 export class Observable {
    on(events: string, callback: Function) {}
@@ -12,8 +24,8 @@ export class Observable {
    constructor() {
       riot.observable(this);
    }
-}  
-  
+}
+
 export interface LifeCycle
 {
    mounted?(F: Function);
@@ -41,40 +53,40 @@ export class Element implements Observable, LifeCycle {
    on(eventName: string,fun: Function) { }
    one(eventName: string,fun: Function) { }
    off(events: string) {}
-   trigger(eventName: string,...args) {}       
-   mixin(mixinObject: Object|Function|string, instance?: any) {}            
+   trigger(eventName: string,...args) {}
+   mixin(mixinObject: Object|Function|string, instance?: any) {}
 
    static createElement(options?:any): HTMLRiotElement {
       var tagName = (this.prototype as any).tagName;
-      var el = document.createElement(tagName);        
-      riot.mount(el, tagName, options);   
+      var el = document.createElement(tagName);
+      riot.mount(el, tagName, options);
       return el as any as HTMLRiotElement;
-   }      
+   }
 }
-   
+
 // new extend, works with getters and setters
-function extend(d, element) {   
+function extend(d, element) {
    var map = Object.keys(element.prototype).reduce((descriptors, key) => {
       descriptors[key] = Object.getOwnPropertyDescriptor(element.prototype, key);
       return descriptors;
    },{}) as PropertyDescriptorMap;
    Object.defineProperties(d, map);
 }
-         
+
 /* old extend, without getters and setters
-function extend(d, element) {   
+function extend(d, element) {
    Object.keys(element.prototype).forEach((key) => d[key] = element.prototype[key]);
 }
 */
 
 export var precompiledTags: { [fileName: string]: CompilerResult } = {};
 
-export function registerClass(element: Function) {    
-      
+export function registerClass(element: Function) {
+
    function registerTag(compiledTag: CompilerResult) {
 
-      var transformFunction = function (opts) {            
-         extend(this,element);         // copies prototype into "this"                        
+      var transformFunction = function (opts) {
+         extend(this,element);         // copies prototype into "this"
          element.apply(this, [opts]);  // calls class constructor applying it on "this"
 
          if(element.prototype.mounted   !== undefined) this.on("mount"   , this.mounted);
@@ -84,18 +96,18 @@ export function registerClass(element: Function) {
 
          // TODO support for init(opts) ?
       };
-                  
-      riot.tag2(compiledTag.tagName, compiledTag.html, compiledTag.css, compiledTag.attribs, transformFunction, riot.settings.brackets);         
+
+      riot.tag2(compiledTag.tagName, compiledTag.html, compiledTag.css, compiledTag.attribs, transformFunction, riot.settings.brackets);
 
       return compiledTag.tagName;
-   }      
+   }
 
    function loadTemplateFromHTTP(template) {
-      var req = new XMLHttpRequest();            
+      var req = new XMLHttpRequest();
       req.open("GET", template, false);
       req.send();
       if (req.status == 200) return req.responseText;
-      else throw req.responseText;            
+      else throw req.responseText;
    };
 
    let compiled: CompilerResult;
@@ -105,35 +117,60 @@ export function registerClass(element: Function) {
       let tagTemplate = element.prototype.template;
       if(tagTemplate.indexOf("<")<0) {
          // tag is a file
-         if(precompiledTags[tagTemplate]!==undefined) 
+         if(precompiledTags[tagTemplate]!==undefined)
          {
-            // loads it from precompiled cache                
+            // loads it from precompiled cache
             compiled = precompiledTags[tagTemplate];
          }
-         else 
+         else
          {
             // loads from HTTP and compile on the fly
-            tagTemplate = loadTemplateFromHTTP(tagTemplate);            
-            compiled = compile(tagTemplate, true, {entities: true})[0];
+            tagTemplate = loadTemplateFromHTTP(tagTemplate);
+            compiled = riot.compile(tagTemplate, true, {entities: true})[0];
          }
       }
       else
       {
          // tag is inlined, compile on the fly
-         compiled = compile(tagTemplate, true, {entities: true})[0];
+         compiled = riot.compile(tagTemplate, true, {entities: true})[0];
       }
 
       element.prototype.tagName = registerTag(compiled);
    }
-   else throw "template property not specified";   
+   else throw "template property not specified";
 }
 
 // @template decorator
 export function template(template: string) {
 	return function(target: Function) {
-      target.prototype["template"] = template;      
+      target.prototype["template"] = template;
       registerClass(target);
-   }	
+   }
 }
 
-                   
+export interface Router {
+   (callback: Function): void;
+   (filter: string, callback: Function): void;
+   (to: string, title?: string);
+
+   create(): Router;
+   start(autoExec?: boolean);
+   stop();
+   exec();
+   query(): any;
+
+   base(base: string);
+   parser(parser: (path: string)=>string, secondParser?: Function );
+}
+
+export interface CompilerResult {
+   tagName: string;
+   html: string;
+   css: string;
+   attribs: string;
+   js: string;
+}
+
+export interface Settings {
+   brackets: string;
+}

@@ -1,16 +1,22 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "umd",
         "target": "es5",
         "noImplicitAny": false,
         "sourceMap": true,
-        "declaration": true
+        "declaration": true,
+        "lib": ["es5", "dom"],
+        "noImplicitReturns": true,
+        "noImplicitThis": false,
+        "outDir": "dist/",
+        "strictNullChecks": true,
+        "removeComments": false
     },
-    "files": [
-        "index.ts",
-        "riot-compiler.ts",
-        "riot-ts.ts",
-        "riot.ts",
-        "types.ts"
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
     ]
 }
