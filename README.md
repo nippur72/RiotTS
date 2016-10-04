@@ -6,7 +6,7 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 
 - [Installation](#install)
 - [How to write elements](#howtowrite)
-- [How to correctly reference in markup](#howtoreference)
+- [Writing a basic element](#basic)
 - [The @template decorator](#template)
 - [Lifecycle events shortcuts](#lifecycle)
 - [How to create elements programmatically](#creating)
@@ -15,25 +15,52 @@ Use Muut's [Riot.js](https://muut.com/riotjs/) minimalistic framework from TypeS
 - [Examples](#examples)
    - [A timer-based counter element](#timer_example) 
 - [Precompiled tags](#precompiled)  
-- [Running the tests](#repoexample)
-- [Known issues](#knownissues)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
 
 # Installation <a name="install"></a>
 
-Install via bower:
+Install via `npm`:
 ```
-bower install --save riot-ts
+npm install --save riot-typescript
 ```
 
-This will also install `riot.js`.
+## Use as a `<script>` (global namespace)
 
-You'll get the following files in `bower_components\riot-ts`:
-- `riot-ts.js` the JavaScript file to load via `<script src="">`
-- `riot-ts.min.js` as above, minified
-- `riot-ts.d.ts` the file to reference in your TypeScript code (`/// <reference path="...">`)
-- `riot-ts.ts` the source TypeScript file for debugging purposes
+In your main .html file add in the header section:
+```HTML
+<head>
+   <!-- loads riot and riot-ts -->
+   <script type="text/javascript" src="node_modules/riot/riot+compiler.js"></script>
+   <script type="text/javascript" src="node_modules/riot-typescript/riot-ts.globals.js"></script>
+</head>   
+```
+Somewhere in your TypeScript files add the references:
+```ts
+/// <reference types="riot-typescript" />
+/// <reference path="node_modules/riot-typescript/riot.global.d.ts" />
+```
+- RiotTS can be referenced with the global name `Riot`  
+- riot can be referenced with the global name `riot`
+
+## Use as a module
+
+In your TypeScript files:
+```ts
+import * as Riot from "riot-typescript";
+```
+When mounting you will also need to reference to `riot` (for `riot.mount`):
+
+Put a declaration somewhere:
+```ts
+declare module "riot/riot+compiler";
+```
+and then import riot:
+```
+import * as riot from "riot/riot+compiler";
+...
+riot.mount("*");
+```
 
 # How to write elements <a name="howtowrite"></a>
 
@@ -46,7 +73,7 @@ In brief:
 
 - Write elements as TypeScript classes
 - Extend the `Riot.Element` class 
-- Use `@template` to define the template string or load it from URL
+- Use `@Riot.template` to define the template string or load it from URL
 - create instances of the element programmatically with `className.createElement()`.
 
 A class-element:
@@ -56,29 +83,12 @@ A class-element:
 - can use TypeScript Mixins
 - `options` are passed to the class constructor
 
-# How to correctly reference in markup <a name="howtoreference"></a>
-
-In the `head` section of your main .html file:
-
-```HTML
-<head>
-   <!-- loads riot and riot-ts -->
-   <script type="text/javascript" src="bower_components/riot/riot.js"></script>        
-   <script type="text/javascript" src="bower_components/riot/compiler.js"></script>        
-   <script type="text/javascript" src="bower_components/riot-ts/riot-ts.js"></script>   
-
-   <!-- custom elements -->
-   <script type="text/javascript" src="elements/my-element.js"></script>      
-
-   <!-- your application -->
-   <script src="myapp.js"></script>            
-</head>
-```
+# Writing a basic element <a name="basic"></a>
 
 In your element TypeScript code (e.g. `elements/my-element.ts`):
 
 ```TypeScript
-@template("my-element.html")
+@Riot.template("my-element.html")
 class MyElement extends Riot.Element
 {
    // ...
@@ -98,17 +108,13 @@ In `elements/my-element.html`:
 In your main application file:
 
 ```TypeScript
-/// <reference path="../bower_components/riot-ts/riot-ts.d.ts" />
-
-//...
-
 riot.mount('*');
 ```
 
 # The @template decorator <a name="template"></a>
 
 ```
-@template(param)
+@Riot.template(param)
 ```
 
 Sets the template for the element. The template parameter can be either:
@@ -120,7 +126,7 @@ Sets the template for the element. The template parameter can be either:
 Example of an element `<my-hello>`:
  
 ```TypeScript
-@template("<my-hello><div>hello</div></my-hello>")
+@Riot.template("<my-hello><div>hello</div></my-hello>")
 class MyHello extends Riot.Element
 {
 }
@@ -129,7 +135,7 @@ class MyHello extends Riot.Element
 or
 
 ```TypeScript
-@template("elements/my-hello.html")
+@Riot.template("elements/my-hello.html")
 class MyHello extends Riot.Element
 {
 }
@@ -146,7 +152,7 @@ See how to setup [a grunt task that does this](#precompiled).
 Precompiled files can also be set to index tags by their tag names rather than their path, making it possible to 
 use a shorter syntax:
 ```TypeScript
-@template("my-hello")
+@Riot.template("my-hello")
 // instead of @template("elements/my-hello.html")
 ```  
 
@@ -164,7 +170,7 @@ Note: names ending in "-ed" have been choosen to not clash with already methods 
 Example:
 
 ```TypeScript
-@template("<myel><span></span></myel>")
+@Riot.template("<myel><span></span></myel>")
 class MyEl extends Riot.Element {
    constructor(opts) {      
       super();
@@ -244,7 +250,7 @@ riot.route.stop();
 
 ### A timer-based counter element <a name="timer_example"></a>
 ```TypeScript
-@template(`
+@Riot.template(`
 <timer>
    <div>
       timer: { time }<br>
@@ -361,19 +367,6 @@ instead of:
 ```
 Note: Tags defined by tag name rather than path cannot work if precompiled tags are turned off. 
 
-# Running the tests <a name="repoexample"></a>
-
-To run the "Test" project containing the Jasmine specs:
-
-- clone this repo `nippur72/RiotTS`
-- go to the `Test` directory
-- run `bower update`
-- Open the solution in Visual Studio and run the "Test" project.
-
-# Known issues <a name="knownissues"></a>
-
-- none (at the moment)
-
 # Contributing <a name="contributing"></a>
 
 Contributions are welcome.
@@ -381,6 +374,9 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v1.0.7
+  - BREAKING CHANGE: ship as `npm` package (`bower` is no longer supported). The way files are loaded is
+  changed please check again the docs. `@template` is now available as `@Riot.template`. 
 - v0.0.22
   - removed the need for registration, `.register` and `.registerAll` are now removed from the API
 - v0.0.21

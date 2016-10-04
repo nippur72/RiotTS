@@ -1,0 +1,23 @@
+{
+  "name": "riot-typescript",
+  "version": "1.0.7",
+  "description": "Riot for TypeScript",
+  "main": "./riot-ts.js",
+  "typings": "./riot-ts.d.ts",
+  "scripts": {
+    "build": "tsc --module es6 && rollup riot-ts.js --format iife --name Riot -o riot-ts.globals.js && tsc && echo export as namespace Riot; >> riot-ts.d.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nippur72/RiotTS.git"
+  },
+  "author": "Antonino Porcino <nino.porcino@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nippur72/RiotTS/issues"
+  },
+  "homepage": "https://github.com/nippur72/RiotTS#readme",
+  "dependencies": {
+    "riot": "^2.6.2"
+  }
+}
