@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "umd",
+        "module": "commonjs",
         "target": "es5",
         "noImplicitAny": false,
         "sourceMap": true,
@@ -8,13 +8,10 @@
         "lib": ["es5", "dom"],
         "noImplicitReturns": true,
         "noImplicitThis": false,
-        "outDir": "dist/",
+        "outDir": "./",
         "strictNullChecks": true,
         "removeComments": false
     },
-    "include": [
-        "src/**/*"
-    ],
     "exclude": [
         "node_modules",
         "**/*.spec.ts"

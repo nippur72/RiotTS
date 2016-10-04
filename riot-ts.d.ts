@@ -58,4 +58,4 @@ export interface CompilerResult {
 export interface Settings {
     brackets: string;
 }
-export as namespace Riot;
+export as namespace Riot; 

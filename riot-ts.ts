@@ -1,19 +1,4 @@
-﻿/*
-export as namespace Riot;
-
-   else
-   {
-      var require = function(module) {
-         return window["riot"];
-      }
-      exports = {};
-      var v = factory(require, exports);
-      window["Riot"] = exports;
-      window["template"] = Riot.template;
-   }
-*/
-
-import riot = require("riot/riot+compiler");
+﻿import * as riot from "riot/riot+compiler";
 
 export class Observable {
    on(events: string, callback: Function) {}

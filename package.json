@@ -1,11 +1,11 @@
 {
   "name": "riot-typescript",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "description": "Riot for TypeScript",
-  "main": "./dist/riot-ts.js",
-  "typings": "./dist/riot-ts.d.ts",
+  "main": "./riot-ts.js",
+  "typings": "./riot-ts.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --module es6 && rollup riot-ts.js --format iife --name Riot -o riot-ts.globals.js && tsc && echo export as namespace Riot; >> riot-ts.d.ts"
   },
   "repository": {
     "type": "git",
