@@ -136,16 +136,16 @@ export function template(template: string) {
 export interface Router {
    (callback: Function): void;
    (filter: string, callback: Function): void;
-   (to: string, title?: string);
+   (to: string, title?: string): void;
 
    create(): Router;
-   start(autoExec?: boolean);
-   stop();
-   exec();
+   start(autoExec?: boolean): void;
+   stop(): void;
+   exec(): void;
    query(): any;
 
-   base(base: string);
-   parser(parser: (path: string)=>string, secondParser?: Function );
+   base(base: string): any;
+   parser(parser: (path: string)=>string, secondParser?: Function ): any;
 }
 
 export interface CompilerResult {

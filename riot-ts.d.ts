@@ -39,11 +39,11 @@ export declare function template(template: string): (target: Function) => void;
 export interface Router {
     (callback: Function): void;
     (filter: string, callback: Function): void;
-    (to: string, title?: string): any;
+    (to: string, title?: string): void;
     create(): Router;
-    start(autoExec?: boolean): any;
-    stop(): any;
-    exec(): any;
+    start(autoExec?: boolean): void;
+    stop(): void;
+    exec(): void;
     query(): any;
     base(base: string): any;
     parser(parser: (path: string) => string, secondParser?: Function): any;

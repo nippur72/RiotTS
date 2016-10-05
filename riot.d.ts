@@ -22,16 +22,16 @@
    interface Router {
       (callback: Function): void;
       (filter: string, callback: Function): void;
-      (to: string, title?: string);
+      (to: string, title?: string): void;
 
       create(): Router;
-      start(autoExec?: boolean);
-      stop();
-      exec();
+      start(autoExec?: boolean): void;
+      stop(): void;
+      exec(): void;
       query(): any;
 
-      base(base: string);
-      parser(parser: (path: string)=>string, secondParser?: Function );
+      base(base: string): any;
+      parser(parser: (path: string)=>string, secondParser?: Function ): any;
    }
 
    interface Settings {
@@ -48,8 +48,8 @@
       mount(selector: string, tagName: string, opts?: any): Array<RiotElement>;
       mount(domNode: Node, tagName: string, opts?: any): Array<RiotElement>;
       render(tagName: string, opts?: any): string;
-      tag(tagName: string, html: string, css: string, attrs: string, constructor: Function);
-      tag2(tagName: string, html: string, css: string, attrs: string, constructor: Function, bpair: string);
+      tag(tagName: string, html: string, css: string, attrs: string, constructor: Function): any;
+      tag2(tagName: string, html: string, css: string, attrs: string, constructor: Function, bpair: string): any;
       class(element: Function): void;
       observable(object: any): void;
       compile: Compile;

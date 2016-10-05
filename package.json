@@ -1,6 +1,6 @@
 {
   "name": "riot-typescript",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "Riot for TypeScript",
   "main": "./riot-ts.js",
   "typings": "./riot-ts.d.ts",
