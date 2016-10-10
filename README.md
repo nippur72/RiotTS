@@ -248,6 +248,8 @@ riot.route.stop();
 
 # Examples <a name="examples"></a>
 
+More example can be found here [nippur72/RiotTS-helloworld](https://github.com/nippur72/RiotTS-helloworld).
+
 ### A timer-based counter element <a name="timer_example"></a>
 ```TypeScript
 @Riot.template(`
